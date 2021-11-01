@@ -75,7 +75,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/amashadihossein/daapr/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -94,30 +101,39 @@
 <a href="#daapr" class="anchor"></a>daapr</h1></div>
 <!-- badges: start -->
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <!-- badges: end --></p>
-<p>The goal of daapr is to conveniently provide the main packages used for implementing the framework of Data-as-a-Product (DaaP).</p>
+<p>The goal of <code>daapr</code> is to conveniently provide the main packages used for implementing the framework of Data-as-a-Product (DaaP).</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p><strong>Read this section carefully!</strong></p>
 <p><code>daapr</code> installs the core packages of the DaaP framework, <a href="https://github.com/amashadihossein/dpbuild"><code>dpbuild</code></a>., <a href="https://github.com/amashadihossein/dpdeploy"><code>dpdeploy</code></a> and <a href="https://github.com/amashadihossein/dpi"><code>dpi</code></a>, along with a custom version of the <a href="https://github.com/amashadihossein/pins"><code>pins</code></a> package.</p>
+<p>Note: currently <code>daapr</code> uses a custom version of the <a href="https://pins.rstudio.com/"><code>pins</code> package</a>. This will change in the future to stay in sync with the latest <code>pins</code>. However, at this point, it is important to remove any existing packages and start with a fresh pull from this repo.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Remove previously installed packages and update</span>
+<code class="sourceCode R"><span class="co"># Remove previously installed core daapr packages and update</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/remove.packages.html">remove.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, 
-                          <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pins"</span>,<span class="st">"dpi"</span>,<span class="st">"dpbuild"</span>,<span class="st">"dpdeploy"</span>,<span class="st">"daapr"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-
-<span class="co"># To install the dev version use dev reference as below</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_git.html">install_git</a></span><span class="op">(</span>url <span class="op">=</span> <span class="st">"https://github.com/amashadihossein/daapr.git"</span><span class="op">)</span>
-
-<span class="co"># To install the dev version use dev reference as below</span>
-<span class="co">#remotes::install_git(url = "https://github.com/amashadihossein/daapr.git",ref = "dev")</span></code></pre></div>
+                          <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pins"</span>,<span class="st">"dpi"</span>,<span class="st">"dpbuild"</span>,<span class="st">"dpdeploy"</span>,<span class="st">"daapr"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>For released version</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"amashadihossein/daapr"</span><span class="op">)</span></code></pre></div>
+<p>For dev version</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"amashadihossein/daapr"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="license">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/amashadihossein/daapr/">https://​github.com/​amashadihossein/​daapr/​</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/amashadihossein/daapr/issues">https://​github.com/​amashadihossein/​daapr/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>

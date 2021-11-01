@@ -25,15 +25,26 @@ for implementing the framework of Data-as-a-Product (DaaP).
 version of the [`pins`](https://github.com/amashadihossein/pins)
 package.
 
+Note: currently `daapr` uses a custom version of the [`pins`
+package](https://pins.rstudio.com/). This will change in the future to
+stay in sync with the latest `pins`. However, at this point, it is
+important to remove any existing packages and start with a fresh pull
+from this repo.
+
 ``` r
-# Remove previously installed packages and update
+# Remove previously installed core daapr packages and update
 remove.packages(intersect(rownames(installed.packages()), 
                           c("pins","dpi","dpbuild","dpdeploy","daapr")))
+```
 
+For released version
 
-# To install the dev version use dev reference as below
-remotes::install_git(url = "https://github.com/amashadihossein/daapr.git")
+``` r
+remotes::install_github(repo = "amashadihossein/daapr")
+```
 
-# To install the dev version use dev reference as below
-#remotes::install_git(url = "https://github.com/amashadihossein/daapr.git",ref = "dev")
+For dev version
+
+``` r
+remotes::install_github(repo = "amashadihossein/daapr", ref = "dev")
 ```

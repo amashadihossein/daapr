@@ -31,4 +31,5 @@ Remotes:
 Suggests: 
     rmarkdown,
     knitr
+BugReports: https://github.com/amashadihossein/daapr/issues
 VignetteBuilder: knitr

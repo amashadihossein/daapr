@@ -10,6 +10,13 @@
 
 Collection of packages to build and manage data products.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item Report bugs at \url{https://github.com/amashadihossein/daapr/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Afshin Mashadi-Hossein \email{afshin.mashadi-hossein@bms.com} (\href{https://orcid.org/0000-0002-2337-2195}{ORCID})
 
