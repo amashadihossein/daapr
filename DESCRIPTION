@@ -1,0 +1,34 @@
+Package: daapr
+Title: Toolset for implemeting the framework of Data-as-a-Product
+Version: 0.0.0.9003
+Authors@R: 
+    person(given = "Afshin",
+           family = "Mashadi-Hossein",
+           role = c("aut", "cre"),
+           email = "afshin.mashadi-hossein@bms.com",
+           comment =  c(ORCID = "0000-0002-2337-2195"))
+Description: Collection of packages to build and manage data products.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports:
+    pins (== 0.4.5.9001),
+    dpi,
+    dpbuild,
+    dpdeploy,
+    cli,
+    crayon,
+    glue,
+    utils,
+    rstudioapi
+Remotes:
+    amashadihossein/pins,
+    amashadihossein/dpi,
+    amashadihossein/dpbuild,
+    amashadihossein/dpdeploy
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

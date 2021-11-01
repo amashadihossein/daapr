@@ -1,0 +1,10 @@
+pandoc: 2.11.4
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  dp_merge: dp_merge.html
+  dp_udpate: dp_udpate.html
+  min_wrkfl: min_wrkfl.html
+  typical_wrkfl: typical_wrkfl.html
+last_built: 2021-11-01T03:06Z
+

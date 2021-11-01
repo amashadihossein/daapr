@@ -1,0 +1,171 @@
+---
+title: "daapr: A minimalist example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{daapr: A minimalist example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Goal:
+
+Build, deploy and access a(n overly) simple data product to get familiarized
+with the concepts and functions. 
+
+## User story
+
+We are interested in a data product that simply provides distances in cars
+dataset in metric unit. See `?cars` for additional detail about the dataset.
+
+## Step 1: Initialize the project
+
+As this is a new project, we initialize the project using `dpbuild::dp_init`. See
+the vignette on new project workflow for details of what the initialization does.
+
+
+```{r dp_init_, eval = F}
+library(daapr)
+
+board_params_set_dried  <- fn_dry(board_params_set_s3(board_alias = "<ALIAS>",
+                                                      bucket_name = "<BUCKET>",
+                                                      region = "<REIGION>"))
+
+# Dry function call to setting credentials
+creds_set_dried <- fn_dry(creds_set_aws(key = Sys.getenv("AWS_KEY"),
+                                        secret = Sys.getenv("AWS_SECRET") ))
+
+# Initialize dp repo
+dp_repo <- dp_init(project_path = "dp_cars",
+                   project_description = "Cars data product",
+                   branch_name = "us001",
+                   branch_description = "User story 1",
+                   readme_general_note = "Data product to explore cars stopping distance",
+                   board_params_set_dried = board_params_set_dried,
+                   creds_set_dried = creds_set_dried)
+```
+
+## Step 2: Set up the working environment
+
+At this point your project has all the basic components to provide you with a 
+sandbox where you can do your development. It is not necessary, but it may be
+instructional to clean and restart your R session before this next step. Then,
+activate and set up the sandbox for this project.
+
+```{r setup_, eval = F}
+# Activate the repo and switch directory
+dpbuild::dp_activate(project_path = "./dp_cars/")
+
+# only necessary if you re-started your R session
+if(!"daapr" %in% (.packages()))
+  library("daapr")
+
+# Set up "promised" env variables
+Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
+Sys.setenv("AWS_SECRET" = "<BUCKETS AWS SECRET>")
+
+# Retrieve configuration
+config <- dpconf_get(project_path = ".")
+
+# Set up remote git env variable so you can directly push your code to git 
+# remote. This will only be used when you are pushing the code, but we can set 
+# it now as we are setting up our working env. If you don't want to deal with
+# this you can skip this. You can still go quite far in the workflow
+Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
+```
+
+## Step 3: Read input data, sync to remote and record
+
+In this step you go from whatever content you have in the `input_files` folder 
+to metadata representation of the read datasets. Here we only have one dataset:
+`cars.csv`
+
+```{r dpinput_, eval = F}
+# Upload data into input_files folder
+readr::write_csv(x = cars, file = "./input_files/cars.csv")
+
+# Map all input_files content and optionally clean file labels in the map
+input_map <- dpinput_map(project_path = ".")
+input_map <- inputmap_clean(input_map = input_map)
+
+# Sync each read files to remote data repo
+synced_map <- dpinput_sync(conf = config, input_map = input_map, verbose = T)
+
+# For each sync'd dataset, record info that will help you retrieve as needed
+dpinput_write(project_path = ".", input_d = synced_map)
+```
+
+## Step 4: Build the data product
+
+Here is where the main logic of the data product is implement and the data
+product is built.
+
+```{r dpbuild_, eval = F}
+# read in the input data from what is recorded by dpinput_write
+data_files_read <- dpinput_read()
+
+# build your ouput data
+output <- data_files_read$cars(config = config) %>% 
+  dplyr::mutate(dist_m = 0.3048 * dist)
+
+# Structure the input, output, metadata ... you wish to have in your data product
+data_object <- dp_structure(data_files_read = data_files_read,
+                            output = output,config = config)
+# save and log the data product built
+dp_write(data_object = data_object, project_path = ".")
+```
+
+Why so many steps if the above chunk is the main logic? The pay off for all you 
+have done is this: you have built a portable recipe where your metadata,
+package dependencies, data and logic are all code!
+Now, by simply saving the above chunk as an R-script, let's say named `dp_make.R`,
+you can have it reproduced from all the configurations recorded without having 
+to provide input data. Everything now is code and can be tracked by `git`.
+
+So to make your project reproducible save the above chunk as `dp_make.R` in the
+main directory. Sourcing this file after closing should be all that is needed to
+reproduce the data product.
+
+## Step 5: Commit and push
+
+At this point, you can commit and push your code.
+NOTE: for your push to work
+
+1. You should have created the empty repo on the git remote (e.g. github)
+2. `Sys.getenv("GITHUB_PAT")` returns the corresponding "GITHUB_PAT"
+
+```{r dpcommit_, eval = F}
+dp_commit(project_path = ".", commit_description = "First dp build")
+dp_push(project_path = ".", remote_url = "<GIT PATH/dp_cars.git>" )
+```
+
+
+## Step 6: Deploy
+
+The typical deploy should follow a fresh clone from remote git (e.g. by CI), but
+here for brevity we can bypass that and manually deploy.
+
+```{r dpdeploy_, eval=FALSE}
+dp_deploy()
+```
+
+
+## Step 7: Data access
+
+Typical access pattern starts with setting up the env vars, but for brevity 
+here we can just use the existing config to connect to the board, get the data 
+and list what else is on the board.
+
+```{r dpi_, eval=FALSE}
+dp_connect(board_params = config$board_params, creds = config$creds)
+
+dp <- dp_get(board_params = config$board_params, data_name = "dp-cars-us001")
+
+dp_list(board_params = config$board_params)
+```

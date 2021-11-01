@@ -1,0 +1,49 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+<img src="man/figures/logo.png" align="right" />
+
+# daapr
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+The goal of `daapr` is to conveniently provide the main packages used for 
+implementing the framework of Data-as-a-Product (DaaP).
+
+## Installation
+
+**Read this section carefully!** 
+
+`daapr` installs the core packages of the DaaP framework, 
+[`dpbuild`](https://github.com/amashadihossein/dpbuild)., 
+[`dpdeploy`](https://github.com/amashadihossein/dpdeploy) and 
+[`dpi`](https://github.com/amashadihossein/dpi), along with a custom version of 
+the [`pins`](https://github.com/amashadihossein/pins) package.
+
+
+```{r installation, eval = F}
+# Remove previously installed packages and update
+remove.packages(intersect(rownames(installed.packages()), 
+                          c("pins","dpi","dpbuild","dpdeploy","daapr")))
+
+
+# To install the dev version use dev reference as below
+remotes::install_github(repo = "amashadihossein/daapr")
+
+# To install the dev version use dev reference as below
+remotes::install_github(repo = "amashadihossein/daapr", ref = "dev")
+```
