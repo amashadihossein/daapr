@@ -22,8 +22,9 @@ same_library <- function(pkg) {
 #' @keywords internal
 daapr_attach <- function() {
   to_load <- pkgs_unloaded()
-  if (length(to_load) == 0)
+  if (length(to_load) == 0) {
     return(invisible())
+  }
 
   msg(
     cli::rule(

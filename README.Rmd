@@ -19,6 +19,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/amashadihossein/daapr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/amashadihossein/daapr?branch=main)
+[![R-CMD-check](https://github.com/amashadihossein/daapr/workflows/R-CMD-check/badge.svg)](https://github.com/amashadihossein/daapr/actions)
 <!-- badges: end -->
 
 The goal of `daapr` is to conveniently provide the main packages used for 
