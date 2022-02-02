@@ -1,6 +1,6 @@
 Package: daapr
 Title: Toolset for implemeting the framework of Data-as-a-Product
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: 
     person(given = "Afshin",
            family = "Mashadi-Hossein",
