@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">daapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
 
       
 
-      </header><script src="min_wrkfl_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="min_wrkfl_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>daapr: A minimalist example</h1>
@@ -137,7 +137,8 @@
                    branch_description <span class="op">=</span> <span class="st">"User story 1"</span>,
                    readme_general_note <span class="op">=</span> <span class="st">"Data product to explore cars stopping distance"</span>,
                    board_params_set_dried <span class="op">=</span> <span class="va">board_params_set_dried</span>,
-                   creds_set_dried <span class="op">=</span> <span class="va">creds_set_dried</span><span class="op">)</span></code></pre></div>
+                   creds_set_dried <span class="op">=</span> <span class="va">creds_set_dried</span>,
+                   github_repo_url <span class="op">=</span> <span class="st">"&lt;GIT PATH/dp_cars.git&gt;"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="step-2-set-up-the-working-environment" class="section level2">
 <h2 class="hasAnchor">
@@ -145,7 +146,7 @@
 <p>At this point your project has all the basic components to provide you with a sandbox where you can do your development. It is not necessary, but it may be instructional to clean and restart your R session before this next step. Then, activate and set up the sandbox for this project.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Activate the repo and switch directory</span>
-<span class="fu">dpbuild</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dpbuild/man/dp_activate.html">dp_activate</a></span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"./dp_cars/"</span><span class="op">)</span>
+<span class="fu">dpbuild</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dpbuild/man/dp_activate.html">dp_activate</a></span><span class="op">(</span>project_path <span class="op">=</span> <span class="va">dp_repo</span><span class="op">)</span>
 
 <span class="co"># only necessary if you re-started your R session</span>
 <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="st">"daapr"</span> <span class="op">%in%</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -213,7 +214,7 @@
 </ol>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">dp_commit</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span>, commit_description <span class="op">=</span> <span class="st">"First dp build"</span><span class="op">)</span>
-<span class="fu">dp_push</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span>, remote_url <span class="op">=</span> <span class="st">"&lt;GIT PATH/dp_cars.git&gt;"</span> <span class="op">)</span></code></pre></div>
+<span class="fu">dp_push</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="step-6-deploy" class="section level2">
 <h2 class="hasAnchor">

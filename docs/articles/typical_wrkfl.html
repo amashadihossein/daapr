@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">daapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
 
       
 
-      </header><script src="typical_wrkfl_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="typical_wrkfl_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>daapr: New project workflow</h1>
@@ -136,7 +136,8 @@
                    branch_description <span class="op">=</span> <span class="st">"User story 1"</span>,
                    readme_general_note <span class="op">=</span> <span class="st">"This data object is generated for testing purposes"</span>,
                    board_params_set_dried <span class="op">=</span> <span class="va">board_params_set_dried</span>,
-                   creds_set_dried <span class="op">=</span> <span class="va">creds_set_dried</span><span class="op">)</span></code></pre></div>
+                   creds_set_dried <span class="op">=</span> <span class="va">creds_set_dried</span>,
+                   github_repo_url <span class="op">=</span> <span class="st">"&lt;GIT PATH/dp_test1.git&gt;"</span><span class="op">)</span></code></pre></div>
 <p><strong>NOTE:</strong> <code>dp_init</code> builds the yaml config file, <code>daap_config.yaml</code>, with all the configurations specified. Configuration includes key:value pairs as well as instruction for function calls. In the above example, two instructions for two function calls are provided. These function call instructions can be thought of as “dried” functions which could be “hydrated” later when executed:</p>
 <ul>
 <li><code>board_params_set_s3(board_alias = "cars_board", bucket_name = "daap_bucket",region = "us-west-1")</code></li>
@@ -192,6 +193,8 @@
 <h2 class="hasAnchor">
 <a href="#step-7-push-and-deploy" class="anchor"></a>Step 7: Push and deploy</h2>
 <p>Push the code to GitHub repo.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">dp_push</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
 <ul>
 <li><p>If CI/CD is set up, the build process should pick up the deployment from here. Specifically, remote server will clone the code, build the data product and deploy it to the remote location as specified by the configuration set up during the initialization.</p></li>
 <li><p>In the absence of CI/CD, while GitHub push can be skipped, avoid doing so. First push the code to the repo and then run <code>dpdeploy::dp_deploy(&lt;project path&gt;)</code> to deploy the code and metadata representing the data.</p></li>

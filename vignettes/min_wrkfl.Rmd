@@ -48,7 +48,8 @@ dp_repo <- dp_init(project_path = "dp_cars",
                    branch_description = "User story 1",
                    readme_general_note = "Data product to explore cars stopping distance",
                    board_params_set_dried = board_params_set_dried,
-                   creds_set_dried = creds_set_dried)
+                   creds_set_dried = creds_set_dried,
+                   github_repo_url = "<GIT PATH/dp_cars.git>")
 ```
 
 ## Step 2: Set up the working environment
@@ -60,7 +61,7 @@ activate and set up the sandbox for this project.
 
 ```{r setup_, eval = F}
 # Activate the repo and switch directory
-dpbuild::dp_activate(project_path = "./dp_cars/")
+dpbuild::dp_activate(project_path = dp_repo)
 
 # only necessary if you re-started your R session
 if(!"daapr" %in% (.packages()))
@@ -142,7 +143,7 @@ NOTE: for your push to work
 
 ```{r dpcommit_, eval = F}
 dp_commit(project_path = ".", commit_description = "First dp build")
-dp_push(project_path = ".", remote_url = "<GIT PATH/dp_cars.git>" )
+dp_push(project_path = ".")
 ```
 
 

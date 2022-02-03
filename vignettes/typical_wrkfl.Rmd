@@ -44,7 +44,8 @@ dp_repo <- dp_init(project_path = "dp_test1",
                    branch_description = "User story 1",
                    readme_general_note = "This data object is generated for testing purposes",
                    board_params_set_dried = board_params_set_dried,
-                   creds_set_dried = creds_set_dried)
+                   creds_set_dried = creds_set_dried,
+                   github_repo_url = "<GIT PATH/dp_test1.git>")
 
 ```
 
@@ -107,6 +108,10 @@ dpbuild::dp_commit(project_path = ".", commit_description = "First dp build: onl
 ## Step 7: Push and deploy
 
 Push the code to GitHub repo. 
+
+```{r dppush, eval = F}
+dp_push(project_path = ".")
+```
 
 - If CI/CD is set up, the build process should pick up the deployment from here. Specifically, remote server will clone the code, build the data product and deploy it to the remote location as specified by the configuration set up during the initialization. 
 
