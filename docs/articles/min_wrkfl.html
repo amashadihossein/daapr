@@ -67,6 +67,9 @@
       <a href="../articles/dp_udpate.html">daapr: Updating build logic</a>
     </li>
     <li>
+      <a href="../articles/input_data_update.html">daapr: Update input data</a>
+    </li>
+    <li>
       <a href="../articles/min_wrkfl.html">daapr: A minimalist example</a>
     </li>
     <li>
@@ -152,18 +155,15 @@
 <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="st">"daapr"</span> <span class="op">%in%</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"daapr"</span><span class="op">)</span>
 
-<span class="co"># Set up "promised" env variables</span>
+<span class="co"># Set up "promised" env variables for remote data repository</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span> <span class="op">=</span> <span class="st">"&lt;BUCKETS AWS KEY&gt;"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"AWS_SECRET"</span> <span class="op">=</span> <span class="st">"&lt;BUCKETS AWS SECRET&gt;"</span><span class="op">)</span>
 
-<span class="co"># Retrieve configuration</span>
-<span class="va">config</span> <span class="op">&lt;-</span> <span class="fu">dpconf_get</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
+<span class="co"># Set up env variables for remote code repository</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_PAT"</span> <span class="op">=</span> <span class="st">"&lt;YOUR GITHUB PAT&gt;"</span><span class="op">)</span>
 
-<span class="co"># Set up remote git env variable so you can directly push your code to git </span>
-<span class="co"># remote. This will only be used when you are pushing the code, but we can set </span>
-<span class="co"># it now as we are setting up our working env. If you don't want to deal with</span>
-<span class="co"># this you can skip this. You can still go quite far in the workflow</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_PAT"</span> <span class="op">=</span> <span class="st">"&lt;YOUR GITHUB PAT&gt;"</span><span class="op">)</span></code></pre></div>
+<span class="co"># Retrieve configuration</span>
+<span class="va">config</span> <span class="op">&lt;-</span> <span class="fu">dpconf_get</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="step-3-read-input-data-sync-to-remote-and-record" class="section level2">
 <h2 class="hasAnchor">
@@ -191,7 +191,7 @@
 <code class="sourceCode R"><span class="co"># read in the input data from what is recorded by dpinput_write</span>
 <span class="va">data_files_read</span> <span class="op">&lt;-</span> <span class="fu">dpinput_read</span><span class="op">(</span><span class="op">)</span>
 
-<span class="co"># build your ouput data</span>
+<span class="co"># build your output data</span>
 <span class="va">output</span> <span class="op">&lt;-</span> <span class="va">data_files_read</span><span class="op">$</span><span class="fu">cars</span><span class="op">(</span>config <span class="op">=</span> <span class="va">config</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dist_m <span class="op">=</span> <span class="fl">0.3048</span> <span class="op">*</span> <span class="va">dist</span><span class="op">)</span>
 

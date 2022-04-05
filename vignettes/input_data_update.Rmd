@@ -1,0 +1,117 @@
+---
+title: "daapr: Update input data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{daapr: Update input data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Goal:
+
+Update `input_data` content of a data product
+
+## User story
+
+We would like to update the cars data product built in the 
+[minimalist example](https://amashadihossein.github.io/daapr/articles/min_wrkfl.html)
+, excluding the last 5 rows as we have learned of issues with those records. 
+
+## Step 1: Navigate to `dp_cars` project
+
+NOTE: If you don't have this project, you can clone it using 
+`dpbuild::dp_clone()`, and add folder `input_files` to the top directory as the 
+location for depositing data.
+
+
+## Step 2: Set the working environment
+
+At this point, your project has all the basic components to provide you with a 
+sandbox where you can do your development. Re-activate and restart the sandbox 
+for the project.
+
+```{r setup_, eval = F}
+# Activate the repo and switch directory
+dpbuild::dp_activate(project_path = dp_repo)
+
+# only necessary if you re-started your R session
+if(!"daapr" %in% (.packages()))
+  library("daapr")
+
+# Set up "promised" env variables for remote data repository
+Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
+Sys.setenv("AWS_SECRET" = "<BUCKETS AWS SECRET>")
+
+# Set up env variables for remote code repository
+Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
+
+# Retrieve configuration
+config <- dpconf_get(project_path = ".")
+```
+
+
+## Step 3: Read updated input data, sync to remote and record
+
+In this step, you go from whatever content you have in the `input_files` folder 
+to metadata representation of the read datasets. Given the goal to update the 
+`cars.csv`, we re-upload the corrected data first. 
+
+```{r dpinput_1, eval = F}
+# Upload data into input_files folder
+readr::write_csv(x = cars[1:45,], file = "./input_files/cars.csv")
+
+# Map all input_files content and optionally clean file labels in the map
+input_map <- dpinput_map(project_path = ".")
+```
+
+Examine `input_map`. Not only it contains the newly uploaded data, it also
+brings along the last input_data from previous records (i.e. the cars data with 
+50 rows). As our goal is to replace the old `cars` table with the new one (i.e 
+the one which only contains the 1st 45 rows), we can remove the old record while
+cleaning the names. In this case, the data to be removed has id "cars".
+
+NOTE: If you are not sure which one is the new and which one is the old cars 
+table, it may be instructive to inspect both datasets. Remember, datasets 
+already synced and read from the records are accessible via anonymous function
+call that require `config` parameters. Ex: `input_map$input_obj$cars(config = config)`
+ 
+```{r dpinput_2, eval = F}
+input_map <- inputmap_clean(input_map = input_map, remove_id = "cars")
+
+# Sync each read files to remote data repo
+synced_map <- dpinput_sync(conf = config, input_map = input_map, verbose = T)
+
+# For each sync'd dataset, record info that will help you retrieve as needed
+dpinput_write(project_path = ".", input_d = synced_map)
+```
+
+
+## Step 4: Build the data product
+
+Here is where the main logic of the data product is implemented and the data
+product is built. For this step, we can simply re-run `dp_make.R`, which will
+re-build the data product with updated input data.
+
+```{r dpbuild_, eval = F}
+source("dp_make.R")
+```
+
+
+## Step 5: Commit and push
+
+At this point, you can commit and push your code.
+
+```{r dpcommit_, eval = F}
+dp_commit(project_path = ".", 
+          commit_description = "Updated input cars, dropping the last 5 rows")
+dp_push(project_path = ".")
+```
+
+
