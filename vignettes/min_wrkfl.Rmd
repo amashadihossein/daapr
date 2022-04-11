@@ -67,18 +67,15 @@ dpbuild::dp_activate(project_path = dp_repo)
 if(!"daapr" %in% (.packages()))
   library("daapr")
 
-# Set up "promised" env variables
+# Set up "promised" env variables for remote data repository
 Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
 Sys.setenv("AWS_SECRET" = "<BUCKETS AWS SECRET>")
 
+# Set up env variables for remote code repository
+Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
+
 # Retrieve configuration
 config <- dpconf_get(project_path = ".")
-
-# Set up remote git env variable so you can directly push your code to git 
-# remote. This will only be used when you are pushing the code, but we can set 
-# it now as we are setting up our working env. If you don't want to deal with
-# this you can skip this. You can still go quite far in the workflow
-Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
 ```
 
 ## Step 3: Read input data, sync to remote and record
@@ -111,7 +108,7 @@ product is built.
 # read in the input data from what is recorded by dpinput_write
 data_files_read <- dpinput_read()
 
-# build your ouput data
+# build your output data
 output <- data_files_read$cars(config = config) %>% 
   dplyr::mutate(dist_m = 0.3048 * dist)
 
