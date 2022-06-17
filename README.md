@@ -19,7 +19,7 @@ for implementing the framework of Data-as-a-Product (DaaP).
 **Read this section carefully!**
 
 `daapr` installs the core packages of the DaaP framework,
-[`dpbuild`](https://github.com/amashadihossein/dpbuild).,
+[`dpbuild`](https://github.com/amashadihossein/dpbuild),
 [`dpdeploy`](https://github.com/amashadihossein/dpdeploy) and
 [`dpi`](https://github.com/amashadihossein/dpi), along with a custom
 version of the [`pins`](https://github.com/amashadihossein/pins)
@@ -48,3 +48,9 @@ For dev version
 ``` r
 remotes::install_github(repo = "amashadihossein/daapr", ref = "dev")
 ```
+
+## Related documentation
+
+-   `dpbuild`: <https://amashadihossein.github.io/dpbuild/>
+-   `dpdeploy`: <https://amashadihossein.github.io/dpdeploy/>
+-   `dpi`: <https://amashadihossein.github.io/dpi/>
