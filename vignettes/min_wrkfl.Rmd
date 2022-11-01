@@ -1,8 +1,8 @@
 ---
-title: "daapr: A minimalist example"
+title: "A minimalist example"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{daapr: A minimalist example}
+  %\VignetteIndexEntry{A minimalist example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
