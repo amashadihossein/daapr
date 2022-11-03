@@ -1,8 +1,8 @@
 ---
-title: "daapr: Combining two data products"
+title: "Combine two data products"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{daapr: Combining two data products}
+  %\VignetteIndexEntry{Combine two data products}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,8 +1,8 @@
 ---
-title: "daapr: Update input data"
+title: "Update input data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{daapr: Update input data}
+  %\VignetteIndexEntry{Update input data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -37,6 +37,7 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+.Rprofile
 
 # Rsconnect
 rsconnect/

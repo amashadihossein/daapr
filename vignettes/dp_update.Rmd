@@ -1,8 +1,8 @@
 ---
-title: "daapr: Updating build logic"
+title: "Update build logic"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{daapr: Updating build logic}
+  %\VignetteIndexEntry{Update build logic}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
