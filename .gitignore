@@ -50,3 +50,6 @@ Meta
 
 # In case accidentally committing data
 *.zip
+
+# pkgdown site
+docs/
