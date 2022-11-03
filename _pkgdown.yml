@@ -1,0 +1,17 @@
+url: ~
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left:  [intro, articles]
+    right: [search, github]
+
+articles:
+- title: Build a data product
+  navbar: ~
+  contents:
+  - min_wrkfl
+  - input_data_update
+  - dp_update
+  - dp_merge

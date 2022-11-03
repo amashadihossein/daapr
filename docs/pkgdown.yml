@@ -1,11 +1,11 @@
-pandoc: 2.11.4
-pkgdown: 1.6.1
+pandoc: 2.19.2
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
+  daapr: daapr.html
   dp_merge: dp_merge.html
-  dp_udpate: dp_udpate.html
+  dp_update: dp_update.html
   input_data_update: input_data_update.html
   min_wrkfl: min_wrkfl.html
-  typical_wrkfl: typical_wrkfl.html
-last_built: 2022-04-11T18:14Z
+last_built: 2022-11-01T18:17Z
 
