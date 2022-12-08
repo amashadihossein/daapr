@@ -60,8 +60,8 @@ instructional to clean and restart your R session before this next step. Then,
 activate and set up the sandbox for this project.
 
 ```{r setup_, eval = F}
-# Activate the repo and switch directory
-dpbuild::dp_activate(project_path = dp_repo)
+# Switch to project directory
+setwd(dp_repo)
 
 # only necessary if you re-started your R session
 if(!"daapr" %in% (.packages()))
@@ -78,7 +78,7 @@ Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
 config <- dpconf_get(project_path = ".")
 ```
 
-## Step 3: Read input data, sync to remote and record
+## Step 3: Add input data and sync to remote
 
 In this step you go from whatever content you have in the `input_files` folder 
 to metadata representation of the read datasets. Here we only have one dataset:
@@ -88,7 +88,7 @@ to metadata representation of the read datasets. Here we only have one dataset:
 # Upload data into input_files folder
 readr::write_csv(x = cars, file = "./input_files/cars.csv")
 
-# Map all input_files content and optionally clean file labels in the map
+# Map all input_files content and clean file labels in the map
 input_map <- dpinput_map(project_path = ".")
 input_map <- inputmap_clean(input_map = input_map)
 
@@ -114,7 +114,7 @@ output <- data_files_read$cars(config = config) %>%
 
 # Structure the input, output, metadata ... you wish to have in your data product
 data_object <- dp_structure(data_files_read = data_files_read,
-                            output = output,config = config)
+                            output = output, config = config)
 # save and log the data product built
 dp_write(data_object = data_object, project_path = ".")
 ```
