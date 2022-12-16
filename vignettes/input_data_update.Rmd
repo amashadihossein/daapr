@@ -40,9 +40,9 @@ for the project.
 ```{r setup_, eval = F}
 # Activate the repo and switch directory
 renv::activate(project = "./dp_cars/")
+renv::restore()
 # Check if the project is set up correctly
 is_valid_dp_repository()
-renv::restore()
 
 # only necessary if you re-started your R session
 if(!"daapr" %in% (.packages()))

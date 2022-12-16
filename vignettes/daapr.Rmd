@@ -87,8 +87,8 @@ the data product
 dpbuild::dpcode_add(project_path = dp_repo)
 ```
 
-After adding code, you can choose to follow the steps in `dp_journal.RMD` 
-instead of following the rest of these steps. 
+After adding code, the steps in `dp_journal.RMD` will walk you through how to
+add and sync input data, build the data product, and deploy it to a remote location.
 
 ## Step 3: Add input data and sync to remote
 
@@ -190,20 +190,14 @@ dpbuild::dp_push(project_path = ".")
 ```
 
 This will complete one development cycle, making the data product and 
-code ready for deployment.
+code ready for deployment. NOTE: committing and and pushing can be decoupled, so just as in a standard git workflow, you could add several different commits before pushing. 
 
 ## Step 6: Deploy
 
-- If CI/CD is set up, the build process should pick up the deployment from here. 
-Specifically, remote server will clone the code, build the data product and deploy 
-it to the remote location as specified by the configuration set up during the initialization. 
-
-- In the absence of CI/CD, while GitHub push can be skipped, avoid doing so. 
-First push the code to the repo and then run `dpdeploy::dp_deploy(<project path>)` 
-to deploy the code and metadata representing the data.
+Now your data product is ready to be deployed to the remote location with one call to `dp_deploy`:
 
 ```{r dpdeploy_, eval=FALSE}
-dp_deploy()
+dpdeploy::dp_deploy()
 ```
 
 ## Step 7: Access data product

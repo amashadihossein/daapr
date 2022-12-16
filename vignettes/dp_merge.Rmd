@@ -99,17 +99,26 @@ prior to build the `dp_xcars` logic.
 ```{r dpbuild, eval = F}
 dp_connect(board_params = config$board_params, creds = config$creds)
 
+# specify which versions of data products to use
+version1 = "<version1>"
+version2 = "<version2>"
 dp_cars <- dp_get(board_params = config$board_params,
-                  data_name = "dp-cars-us001")
+                  data_name = "dp-cars-us001", version = version1)
 
 dp_mtcars <- dp_get(board_params = config$board_params,
-                  data_name = "dp-mtcars-us001")
+                  data_name = "dp-mtcars-us001", version = version2)
+
+# build input data by converting input data products to links
+input = list(dp_cars = dp_tolink(data_name = "dp-cars-us001",
+                                 data_version = version1),
+             dp_mtcars = dp_tolink(data_name = "dp-mtcars-us001",
+                                   data_version = version2))
 
 # build your output data
 output <- list(cars = dp_cars$input$cars, mt_cars = dp_mtcars$input$mtcars)
 
 # Structure the input, output, metadata ... you wish to have in your data product
-data_object <- dp_structure(data_files_read = NULL,
+data_object <- dp_structure(data_files_read = input,
                             output = output, config = config)
 
 # save and log the data product built
@@ -131,8 +140,7 @@ dp_push(project_path = ".")
 
 ## Step 6: Deploy
 
-The typical deploy should follow a fresh clone from remote git (e.g. by CI), but
-here for brevity we can bypass that and manually deploy.
+Deploy the merged data product: 
 
 ```{r dpdeploy, eval=FALSE}
 dp_deploy()

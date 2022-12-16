@@ -146,8 +146,7 @@ dp_push(project_path = ".")
 
 ## Step 6: Deploy
 
-The typical deploy should follow a fresh clone from remote git (e.g. by CI), but
-here for brevity we can bypass that and manually deploy.
+Deploy the data product: 
 
 ```{r dpdeploy_, eval=FALSE}
 dp_deploy()

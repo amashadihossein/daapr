@@ -38,9 +38,9 @@ Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB_PAT>")
 
 dp_clone(remote_url = "<GIT PATH/dp_cars.git>", branch = "us001")
 renv::activate(project = "./dp_cars/")
+renv::restore()
 # Check if the project is set up correctly
 is_valid_dp_repository()
-renv::restore()
 
 library(daapr)
 # get config
@@ -92,8 +92,7 @@ dp_push(project_path = ".")
 
 ## Step 6 Deploy
 
-Deploy (as well as build) may be done on a different machine (e.g. CI) but for 
-brevity here we can just use the local build and deploy manually
+Deploy the data product: 
 
 ```{r deploy, eval=FALSE}
 dp_deploy()
