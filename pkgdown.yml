@@ -1,5 +1,5 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   daapr: daapr.html
@@ -7,7 +7,7 @@ articles:
   dp_update: dp_update.html
   input_data_update: input_data_update.html
   min_wrkfl: min_wrkfl.html
-last_built: 2022-11-30T23:12Z
+last_built: 2022-12-16T07:07Z
 urls:
   reference: https://amashadihossein.github.io/daapr/reference
   article: https://amashadihossein.github.io/daapr/articles
