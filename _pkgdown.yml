@@ -14,5 +14,6 @@ articles:
   - min_wrkfl
   - input_data_update
   - dp_update
+  - min_workflow_local
   - dp_merge
   - faq
