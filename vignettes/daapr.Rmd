@@ -19,12 +19,13 @@ knitr::opts_chunk$set(
 
 For a new project, start by initializing the project using `dpbuild::dp_init`, which does the following:
 
-1. sets up the folder structure
-2. sets up git and switch to specified `branch_name`
-3. sets up `renv` to capture package dependencies
-4. sets up daap configuration yaml file `daap_config.yaml`
+1. Sets up the folder structure
+2. Sets up git and switch to specified `branch_name`
+3. Sets up `renv` to capture package dependencies
+4. Sets up daap configuration yaml file `daap_config.yaml`
 
-An example would be as follows:
+First, create a new repository with your project name on github and provide the 
+repo url to `dp_init`. An example would be as follows:
 
 ```{r dp_init, eval = F}
 library(daapr)
@@ -33,9 +34,9 @@ board_params_set_dried  <- fn_dry(board_params_set_s3(board_alias = "cars_board"
                                                       bucket_name = "daap_bucket",
                                                       region = "us-west-1"))
 
-
 # Dry function call to setting credentials
-creds_set_dried <- fn_dry(creds_set_aws(key = Sys.getenv("AWS_KEY"), secret = Sys.getenv("AWS_SECRET") ))
+creds_set_dried <- fn_dry(creds_set_aws(key = Sys.getenv("AWS_KEY"), 
+                                        secret = Sys.getenv("AWS_SECRET") ))
 
 # Initialize dp repo
 dp_repo <- dp_init(project_path = "dp_test1",
@@ -49,71 +50,167 @@ dp_repo <- dp_init(project_path = "dp_test1",
 
 ```
 
-**NOTE:** `dp_init` builds the yaml config file, `daap_config.yaml`, with all the configurations specified. Configuration includes key:value pairs as well as instruction for function calls. In the above example, two instructions for two function calls are provided. These function call instructions can be thought of as "dried" functions which could be "hydrated" later when executed:
+**NOTE:** `dp_init` builds the yaml config file, `daap_config.yaml`, with all the 
+configurations specified. Configuration includes key:value pairs as well as 
+instructions for function calls. In the above example, two instructions for two 
+function calls are provided. These function call instructions can be thought of 
+as "dried" functions which could be "hydrated" later when executed:
 
-- `board_params_set_s3(board_alias = "cars_board", bucket_name = "daap_bucket",region = "us-west-1")`
+- `board_params_set_s3(board_alias = "cars_board", bucket_name = "daap_bucket", region = "us-west-1")`
 - `creds_set_aws(key = Sys.getenv("AWS_KEY"), secret = Sys.getenv("AWS_SECRET") )`
 
-Note, that the 2nd function call relies on "AWS_KEY" and "AWS_SECRET" to be 
-available in the environment when the function is beign hydrated
+Note that the second function call relies on "AWS_KEY" and "AWS_SECRET" to be 
+available in the environment when the function is being hydrated. Do not pass keys
+or secrets directly to `creds_set*`. Instead, use environment variables as above or a 
+password manager package such as [keyring](https://github.com/r-lib/keyring).
 
-## Step 2: Add starter script
+## Step 2: Set up the working environment
 
-This step is optional, but highly recommended. The starter code includes:
-
-1. `dp_journal.RMD`: A dev journal which will help both guide one through and document the steps in building the data product
-2. `dp_make.R`: The main workflow management script the execution of which should build the data product
-3. `R/dp_structure.R`: Starter code that will help with structuring the data product
-
-```{r dpcode_add, eval = F}
-dpbuild::dpcode_add(project_path = dp_repo)
-```
-
-
-## Step 3: Data prep
-
-**Goal:**: This involves following the steps in the dev journal up until `source("dp_make.R")` step. The goal of this step is to sync the right subset (or all) of the input data into remote and capture the relevant metadata.
-
-For convenience, the directory is switched to project directory just built
+After initializing the project, set your working directory to the project directory: 
 
 ```{r switch_dir, eval=FALSE}
 setwd(dp_repo)
 ```
 
+You can double-check that everything is set up correctly with `is_valid_dp_repository()`
 
-## Step 4: Derive new features as needed
+### Add starter script
 
-This is where the main logic of building a data product per user story is implemented as functions defined within the `/R` sub-directory of the project, as well as integration of these functions within `dp_make.R` workflow.
+This step is optional, but highly recommended. The starter code includes:
 
+1. `dp_journal.RMD`: A dev journal which will help both guide one through and 
+document the steps in building the data product
+2. `dp_make.R`: The main workflow management script. Sourcing this script will build 
+the data product
 
-## Step 5: Execute `dp_make.R`
+```{r dpcode_add, eval = F}
+dpbuild::dpcode_add(project_path = dp_repo)
+```
 
-Once satisfied with changes needed to derived features, execute the workflow plan (this is included `dp_journal.RMD`)
+After adding code, the steps in `dp_journal.RMD` will walk you through how to
+add and sync input data, build the data product, and deploy it to a remote location.
+
+## Step 3: Add input data and sync to remote
+
+**Goal**: This involves following the steps in the dev journal up until 
+`source("dp_make.R")` step. The goal of this step is to sync the right subset 
+(or all) of the input data into remote and capture the relevant metadata.
+
+Below is an example adding and syncing data with the cars dataset, but you can 
+upload any data file(s) of interest into the `input_files` folder as long as your
+data is in a tabular format.
+
+```{r dpinput_, eval = F}
+# Upload data into input_files folder
+readr::write_csv(x = cars, file = "./input_files/cars.csv")
+
+# Map all input_files content and clean file labels in the map
+input_map <- dpinput_map(project_path = ".")
+input_map <- inputmap_clean(input_map = input_map)
+
+# Sync each input file to remote data repo
+config <- dpconf_get(project_path = ".")
+synced_map <- dpinput_sync(conf = config, input_map = input_map, verbose = T)
+
+# For each sync'd dataset, record info that will help you retrieve as needed
+dpinput_write(project_path = ".", input_d = synced_map)
+```
+
+## Step 4: Build the data product
+
+This is where the main logic of building a data product per user story is implemented
+as functions defined within the `/R` sub-directory of the project, as well as 
+integration of these functions within `dp_make.R` workflow.
+
+### Derive new features as needed
+
+Here is where the main logic of the data product is implement and the data
+product is built. As an example, let's make a new function `derive_dist()` where
+we want to derive output distance in meters. We can make a new file `derive_dist.R`
+in the R project directory. 
+
+```{r derive_fn, eval = F}
+derive_dist <- function(data_files_read, config) {
+  
+  output <- data_files_read$cars(config = config) %>% 
+    dplyr::mutate(dist_m = 0.3048 * dist)
+  
+  return(output)
+}
+```
+
+Then, we can modify `dp_make.R` to include our derive function so that it gets
+built into the data product:
+
+```{r dpmake_1, eval = F}
+# Derive distance
+dist_m = derive_dist(data_files_read = data_files_read, config = config)
+```
+
+And we also need to make sure our derived data gets added to `dp_structure` within
+`dp_make.R`:
+
+```{r dpmake_2, eval = F}
+# Structure data obj
+data_object = dp_structure(data_files_read = data_files_read, 
+                           config = config, 
+                           output = list(dist_m = dist_m), 
+                           metadata = list())
+```
+
+The output can contain many datasets, structured as desired in the form of a named list.
+
+### Execute `dp_make.R`
+
+Once satisfied with changes needed to derived features, execute the workflow plan 
+(this is included `dp_journal.RMD`)
 
 ```{r make_plan, eval= FALSE}
 source("dp_make.R")
 ```
 
-If data testing has been implemented, the test results can be evaluated here and modifications to the code be made as needed.
+You can check your built data product by inspecting the rds object in the `output_files`
+folder before continuing with the next steps.
 
-## Step 6: commit
+If data testing has been implemented, the test results can be evaluated here and 
+modifications to the code be made as needed.
 
-Once data product made meets the expectation, run `dp_commit` providing the commit message. This will complete one development cycle, making the data product and code ready for deployment.
+## Step 5: Commit and push
+
+Once the data product meets the expectations, you can commit and push your code, 
+providing a commit message to `dp_commit`.
+NOTE: for your push to work:
+
+1. You should have created the empty repo on the git remote (e.g. github)
+2. `Sys.getenv("GITHUB_PAT")` returns the corresponding "GITHUB_PAT"
 
 ```{r commit, eval=F}
 dpbuild::dp_commit(project_path = ".", commit_description = "First dp build: only input data")
+dpbuild::dp_push(project_path = ".")
 ```
 
+This will complete one development cycle, making the data product and 
+code ready for deployment. NOTE: committing and and pushing can be decoupled, so just as in a standard git workflow, you could add several different commits before pushing. 
 
-## Step 7: Push and deploy
+## Step 6: Deploy
 
-Push the code to GitHub repo. 
+Now your data product is ready to be deployed to the remote location with one call to `dp_deploy`:
 
-```{r dppush, eval = F}
-dp_push(project_path = ".")
+```{r dpdeploy_, eval=FALSE}
+dpdeploy::dp_deploy()
 ```
 
-- If CI/CD is set up, the build process should pick up the deployment from here. Specifically, remote server will clone the code, build the data product and deploy it to the remote location as specified by the configuration set up during the initialization. 
+## Step 7: Access data product
 
-- In the absence of CI/CD, while GitHub push can be skipped, avoid doing so. First push the code to the repo and then run `dpdeploy::dp_deploy(<project path>)` to deploy the code and metadata representing the data.
+Typical access pattern starts with setting up the environment vars, but for brevity 
+here we can just use the existing config to connect to the board, get the data 
+and list what else is on the board.
+
+```{r dpi_, eval=FALSE}
+dp_connect(board_params = config$board_params, creds = config$creds)
+
+dp <- dp_get(board_params = config$board_params, data_name = "dp_test1")
+
+dp_list(board_params = config$board_params)
+```
 

@@ -27,9 +27,9 @@ We would like to update the cars data product built in the
 ## Step 1: Navigate to `dp_cars` project
 
 NOTE: If you don't have this project, you can clone it using 
-`dpbuild::dp_clone()`, and add folder `input_files` to the top directory as the 
-location for depositing data.
-
+`dpbuild::dp_clone()`. See more details in [dp update vignette](https://amashadihossein.github.io/daapr/articles/dp_update.html). Make
+sure you have the folder `input_files` in your project directory as the location 
+for depositing data
 
 ## Step 2: Set the working environment
 
@@ -39,7 +39,10 @@ for the project.
 
 ```{r setup_, eval = F}
 # Activate the repo and switch directory
-dpbuild::dp_activate(project_path = dp_repo)
+renv::activate(project = "./dp_cars/")
+renv::restore()
+# Check if the project is set up correctly
+is_valid_dp_repository()
 
 # only necessary if you re-started your R session
 if(!"daapr" %in% (.packages()))

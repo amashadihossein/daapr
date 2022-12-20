@@ -35,7 +35,8 @@ data product based on `mtcars` dataset we have built).
 ## Step 1: Initialize the project
 
 As this is a new project, we initialize the project using `dpbuild::dp_init`. See
-the vignette on new project workflow for details of what the initialization does.
+the [vignette](https://amashadihossein.github.io/daapr/articles/daapr.html) on 
+new project workflow for details of what the initialization does.
 
 
 ```{r dp_init_, eval = F}
@@ -68,13 +69,11 @@ instructional to clean and restart your R session before this next step. Then,
 activate and set up the sandbox for this project.
 
 ```{r setup, eval = F}
+setwd(dp_repo)
+
 # only necessary if you re-started your R session
 if(!"daapr" %in% (.packages()))
   library("daapr")
-
-# Activate the repo and switch directory
-dp_activate(project_path = "./dp_xcars/")
-renv::restore()
 
 # Set up "promised" env variables
 Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
@@ -90,8 +89,6 @@ config <- dpconf_get(project_path = ".")
 Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
 ```
 
-
-
 ## Step 3: Build the data product
 
 Here is where the main logic of the data product is implement and the data
@@ -102,22 +99,31 @@ prior to build the `dp_xcars` logic.
 ```{r dpbuild, eval = F}
 dp_connect(board_params = config$board_params, creds = config$creds)
 
+# specify which versions of data products to use
+version1 = "<version1>"
+version2 = "<version2>"
 dp_cars <- dp_get(board_params = config$board_params,
-                  data_name = "dp-cars-us001")
+                  data_name = "dp-cars-us001", version = version1)
 
 dp_mtcars <- dp_get(board_params = config$board_params,
-                  data_name = "dp-mtcars-us001")
+                  data_name = "dp-mtcars-us001", version = version2)
+
+# build input data by converting input data products to links
+input = list(dp_cars = dp_tolink(data_name = "dp-cars-us001",
+                                 data_version = version1),
+             dp_mtcars = dp_tolink(data_name = "dp-mtcars-us001",
+                                   data_version = version2))
 
 # build your output data
 output <- list(cars = dp_cars$input$cars, mt_cars = dp_mtcars$input$mtcars)
 
 # Structure the input, output, metadata ... you wish to have in your data product
-data_object <- dp_structure(data_files_read = NULL,
-                            output = output,config = config)
+data_object <- dp_structure(data_files_read = input,
+                            output = output, config = config)
+
 # save and log the data product built
 dp_write(data_object = data_object, project_path = ".")
 ```
-
 
 ## Step 5: Commit and push
 
@@ -129,19 +135,16 @@ NOTE: for your push to work
 
 ```{r dpcommit_, eval = F}
 dp_commit(project_path = ".", commit_description = "First dp build")
-dp_push(project_path = ".", remote_url = "<GIT PATH/dp_cars.git>" )
+dp_push(project_path = ".")
 ```
-
 
 ## Step 6: Deploy
 
-The typical deploy should follow a fresh clone from remote git (e.g. by CI), but
-here for brevity we can bypass that and manually deploy.
+Deploy the merged data product: 
 
 ```{r dpdeploy, eval=FALSE}
 dp_deploy()
 ```
-
 
 ## Step 7: Data access
 
