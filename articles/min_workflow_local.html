@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="daapr">
-<title>A minimalist example • daapr</title>
+<title>A minimalist example with local data • daapr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="A minimalist example">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="A minimalist example with local data">
 <meta property="og:description" content="daapr">
 <meta property="og:image" content="https://amashadihossein.github.io/daapr/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -80,11 +80,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>A minimalist example</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>A minimalist example with local data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/amashadihossein/daapr/blob/HEAD/vignettes/min_wrkfl.Rmd" class="external-link"><code>vignettes/min_wrkfl.Rmd</code></a></small>
-      <div class="d-none name"><code>min_wrkfl.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/amashadihossein/daapr/blob/HEAD/vignettes/min_workflow_local.Rmd" class="external-link"><code>vignettes/min_workflow_local.Rmd</code></a></small>
+      <div class="d-none name"><code>min_workflow_local.Rmd</code></div>
     </div>
 
     
@@ -92,8 +92,10 @@
 <div class="section level2">
 <h2 id="goal">Goal:<a class="anchor" aria-label="anchor" href="#goal"></a>
 </h2>
-<p>Build, deploy and access a(n overly) simple data product to get
-familiarized with the concepts and functions.</p>
+<p>Build, deploy and access a(n overly) simple data product locally to
+get familiarized with the concepts and functions. This method is
+applicable for building data products on locally or on mounted
+drives.</p>
 </div>
 <div class="section level2">
 <h2 id="user-story">User story<a class="anchor" aria-label="anchor" href="#user-story"></a>
@@ -111,13 +113,13 @@ for details of what the initialization does.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">daapr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">board_params_set_dried</span>  <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">board_params_set_s3</span><span class="op">(</span>board_alias <span class="op">=</span> <span class="st">"&lt;ALIAS&gt;"</span>,</span>
-<span>                                                      bucket_name <span class="op">=</span> <span class="st">"&lt;BUCKET&gt;"</span>,</span>
-<span>                                                      region <span class="op">=</span> <span class="st">"&lt;REIGION&gt;"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Dry function call to set board location and name</span></span>
+<span><span class="va">board_params_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">board_params_set_local</span><span class="op">(</span>board_alias <span class="op">=</span> <span class="st">"&lt;ALIAS&gt;"</span>,</span>
+<span>                                                        folder <span class="op">=</span> <span class="st">"&lt;FOLDER_PATH&gt;"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Dry function call to setting credentials</span></span>
-<span><span class="va">creds_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">creds_set_aws</span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span><span class="op">)</span>,</span>
-<span>                                        secret <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_SECRET"</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Dry function call to setting credentials -- none needed for local board</span></span>
+<span><span class="co"># TODO: add option for no credentials, this is a placeholder</span></span>
+<span><span class="va">creds_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Initialize dp repo</span></span>
 <span><span class="va">dp_repo</span> <span class="op">&lt;-</span> <span class="fu">dp_init</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"dp_cars"</span>,</span>
@@ -145,10 +147,6 @@ this project.</p>
 <span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="st">"daapr"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html" class="external-link">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"daapr"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Set up "promised" env variables for remote data repository</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span> <span class="op">=</span> <span class="st">"&lt;BUCKETS AWS KEY&gt;"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"AWS_SECRET"</span> <span class="op">=</span> <span class="st">"&lt;BUCKETS AWS SECRET&gt;"</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># Set up env variables for remote code repository</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"GITHUB_PAT"</span> <span class="op">=</span> <span class="st">"&lt;YOUR GITHUB PAT&gt;"</span><span class="op">)</span></span>
 <span></span>
@@ -165,7 +163,7 @@ datasets. Here we only have one dataset: <code>cars.csv</code></p>
 <code class="sourceCode R"><span><span class="co"># Upload data into input_files folder</span></span>
 <span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cars</span>, file <span class="op">=</span> <span class="st">"./input_files/cars.csv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Map all input_files content and clean file labels in the map</span></span>
+<span><span class="co"># Map all input_files content and optionally clean file labels in the map</span></span>
 <span><span class="va">input_map</span> <span class="op">&lt;-</span> <span class="fu">dpinput_map</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
 <span><span class="va">input_map</span> <span class="op">&lt;-</span> <span class="fu">inputmap_clean</span><span class="op">(</span>input_map <span class="op">=</span> <span class="va">input_map</span><span class="op">)</span></span>
 <span></span>
@@ -223,9 +221,10 @@ to work</p>
 <div class="section level2">
 <h2 id="step-6-deploy">Step 6: Deploy<a class="anchor" aria-label="anchor" href="#step-6-deploy"></a>
 </h2>
-<p>Deploy the data product:</p>
+<p>Deploy the data product to the specified location:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dp_deploy</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Deploy data product to local board</span></span>
+<span><span class="fu">dp_deploy</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-7-data-access">Step 7: Data access<a class="anchor" aria-label="anchor" href="#step-7-data-access"></a>

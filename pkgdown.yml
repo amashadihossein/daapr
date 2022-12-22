@@ -5,9 +5,11 @@ articles:
   daapr: daapr.html
   dp_merge: dp_merge.html
   dp_update: dp_update.html
+  faq: faq.html
   input_data_update: input_data_update.html
+  min_workflow_local: min_workflow_local.html
   min_wrkfl: min_wrkfl.html
-last_built: 2022-12-16T07:07Z
+last_built: 2022-12-22T21:03Z
 urls:
   reference: https://amashadihossein.github.io/daapr/reference
   article: https://amashadihossein.github.io/daapr/articles

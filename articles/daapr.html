@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="daapr: New project workflow">
 <meta property="og:description" content="daapr">
@@ -51,7 +51,9 @@
     <a class="dropdown-item" href="../articles/min_wrkfl.html">A minimalist example</a>
     <a class="dropdown-item" href="../articles/input_data_update.html">Update input data</a>
     <a class="dropdown-item" href="../articles/dp_update.html">Update build logic</a>
+    <a class="dropdown-item" href="../articles/min_workflow_local.html">A minimalist example with local data</a>
     <a class="dropdown-item" href="../articles/dp_merge.html">Combine two data products</a>
+    <a class="dropdown-item" href="../articles/faq.html">Frequently Asked Questions</a>
   </div>
 </li>
       </ul>
@@ -93,15 +95,17 @@
 <p>For a new project, start by initializing the project using
 <code><a href="https://rdrr.io/pkg/dpbuild/man/dp_init.html" class="external-link">dpbuild::dp_init</a></code>, which does the following:</p>
 <ol style="list-style-type: decimal">
-<li>sets up the folder structure</li>
-<li>sets up git and switch to specified <code>branch_name</code>
+<li>Sets up the folder structure</li>
+<li>Sets up git and switch to specified <code>branch_name</code>
 </li>
-<li>sets up <code>renv</code> to capture package dependencies</li>
-<li>sets up daap configuration yaml file
+<li>Sets up <code>renv</code> to capture package dependencies</li>
+<li>Sets up daap configuration yaml file
 <code>daap_config.yaml</code>
 </li>
 </ol>
-<p>An example would be as follows:</p>
+<p>First, create a new repository with your project name on github and
+provide the repo url to <code>dp_init</code>. An example would be as
+follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">daapr</span><span class="op">)</span></span>
 <span></span>
@@ -109,9 +113,9 @@
 <span>                                                      bucket_name <span class="op">=</span> <span class="st">"daap_bucket"</span>,</span>
 <span>                                                      region <span class="op">=</span> <span class="st">"us-west-1"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span></span>
 <span><span class="co"># Dry function call to setting credentials</span></span>
-<span><span class="va">creds_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">creds_set_aws</span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span><span class="op">)</span>, secret <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_SECRET"</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">creds_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">creds_set_aws</span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span><span class="op">)</span>, </span>
+<span>                                        secret <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_SECRET"</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Initialize dp repo</span></span>
 <span><span class="va">dp_repo</span> <span class="op">&lt;-</span> <span class="fu">dp_init</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"dp_test1"</span>,</span>
@@ -124,22 +128,33 @@
 <span>                   github_repo_url <span class="op">=</span> <span class="st">"&lt;GIT PATH/dp_test1.git&gt;"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>NOTE:</strong> <code>dp_init</code> builds the yaml config
 file, <code>daap_config.yaml</code>, with all the configurations
-specified. Configuration includes key:value pairs as well as instruction
-for function calls. In the above example, two instructions for two
-function calls are provided. These function call instructions can be
-thought of as “dried” functions which could be “hydrated” later when
-executed:</p>
+specified. Configuration includes key:value pairs as well as
+instructions for function calls. In the above example, two instructions
+for two function calls are provided. These function call instructions
+can be thought of as “dried” functions which could be “hydrated” later
+when executed:</p>
 <ul>
-<li><code>board_params_set_s3(board_alias = "cars_board", bucket_name = "daap_bucket",region = "us-west-1")</code></li>
+<li><code>board_params_set_s3(board_alias = "cars_board", bucket_name = "daap_bucket", region = "us-west-1")</code></li>
 <li><code>creds_set_aws(key = Sys.getenv("AWS_KEY"), secret = Sys.getenv("AWS_SECRET") )</code></li>
 </ul>
-<p>Note, that the 2nd function call relies on “AWS_KEY” and “AWS_SECRET”
-to be available in the environment when the function is beign
-hydrated</p>
+<p>Note that the second function call relies on “AWS_KEY” and
+“AWS_SECRET” to be available in the environment when the function is
+being hydrated. Do not pass keys or secrets directly to
+<code>creds_set*</code>. Instead, use environment variables as above or
+a password manager package such as <a href="https://github.com/r-lib/keyring" class="external-link">keyring</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="step-2-add-starter-script">Step 2: Add starter script<a class="anchor" aria-label="anchor" href="#step-2-add-starter-script"></a>
+<h2 id="step-2-set-up-the-working-environment">Step 2: Set up the working environment<a class="anchor" aria-label="anchor" href="#step-2-set-up-the-working-environment"></a>
 </h2>
+<p>After initializing the project, set your working directory to the
+project directory:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">dp_repo</span><span class="op">)</span></span></code></pre></div>
+<p>You can double-check that everything is set up correctly with
+<code>is_valid_dp_repository()</code></p>
+<div class="section level3">
+<h3 id="add-starter-script">Add starter script<a class="anchor" aria-label="anchor" href="#add-starter-script"></a>
+</h3>
 <p>This step is optional, but highly recommended. The starter code
 includes:</p>
 <ol style="list-style-type: decimal">
@@ -148,71 +163,136 @@ includes:</p>
 guide one through and document the steps in building the data
 product</li>
 <li>
-<code>dp_make.R</code>: The main workflow management script the
-execution of which should build the data product</li>
-<li>
-<code>R/dp_structure.R</code>: Starter code that will help with
-structuring the data product</li>
+<code>dp_make.R</code>: The main workflow management script.
+Sourcing this script will build the data product</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dpbuild</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dpbuild/man/dpcode_add.html" class="external-link">dpcode_add</a></span><span class="op">(</span>project_path <span class="op">=</span> <span class="va">dp_repo</span><span class="op">)</span></span></code></pre></div>
+<p>After adding code, the steps in <code>dp_journal.RMD</code> will walk
+you through how to add and sync input data, build the data product, and
+deploy it to a remote location.</p>
+</div>
 </div>
 <div class="section level2">
-<h2 id="step-3-data-prep">Step 3: Data prep<a class="anchor" aria-label="anchor" href="#step-3-data-prep"></a>
+<h2 id="step-3-add-input-data-and-sync-to-remote">Step 3: Add input data and sync to remote<a class="anchor" aria-label="anchor" href="#step-3-add-input-data-and-sync-to-remote"></a>
 </h2>
-<p><strong>Goal:</strong>: This involves following the steps in the dev
+<p><strong>Goal</strong>: This involves following the steps in the dev
 journal up until <code>source("dp_make.R")</code> step. The goal of this
 step is to sync the right subset (or all) of the input data into remote
 and capture the relevant metadata.</p>
-<p>For convenience, the directory is switched to project directory just
-built</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">dp_repo</span><span class="op">)</span></span></code></pre></div>
+<p>Below is an example adding and syncing data with the cars dataset,
+but you can upload any data file(s) of interest into the
+<code>input_files</code> folder as long as your data is in a tabular
+format.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Upload data into input_files folder</span></span>
+<span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cars</span>, file <span class="op">=</span> <span class="st">"./input_files/cars.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Map all input_files content and clean file labels in the map</span></span>
+<span><span class="va">input_map</span> <span class="op">&lt;-</span> <span class="fu">dpinput_map</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="va">input_map</span> <span class="op">&lt;-</span> <span class="fu">inputmap_clean</span><span class="op">(</span>input_map <span class="op">=</span> <span class="va">input_map</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Sync each input file to remote data repo</span></span>
+<span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu">dpconf_get</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="va">synced_map</span> <span class="op">&lt;-</span> <span class="fu">dpinput_sync</span><span class="op">(</span>conf <span class="op">=</span> <span class="va">config</span>, input_map <span class="op">=</span> <span class="va">input_map</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># For each sync'd dataset, record info that will help you retrieve as needed</span></span>
+<span><span class="fu">dpinput_write</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span>, input_d <span class="op">=</span> <span class="va">synced_map</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="step-4-derive-new-features-as-needed">Step 4: Derive new features as needed<a class="anchor" aria-label="anchor" href="#step-4-derive-new-features-as-needed"></a>
+<h2 id="step-4-build-the-data-product">Step 4: Build the data product<a class="anchor" aria-label="anchor" href="#step-4-build-the-data-product"></a>
 </h2>
 <p>This is where the main logic of building a data product per user
 story is implemented as functions defined within the <code>/R</code>
 sub-directory of the project, as well as integration of these functions
 within <code>dp_make.R</code> workflow.</p>
+<div class="section level3">
+<h3 id="derive-new-features-as-needed">Derive new features as needed<a class="anchor" aria-label="anchor" href="#derive-new-features-as-needed"></a>
+</h3>
+<p>Here is where the main logic of the data product is implement and the
+data product is built. As an example, let’s make a new function
+<code>derive_dist()</code> where we want to derive output distance in
+meters. We can make a new file <code>derive_dist.R</code> in the R
+project directory.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">derive_dist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data_files_read</span>, <span class="va">config</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">output</span> <span class="op">&lt;-</span> <span class="va">data_files_read</span><span class="op">$</span><span class="fu">cars</span><span class="op">(</span>config <span class="op">=</span> <span class="va">config</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dist_m <span class="op">=</span> <span class="fl">0.3048</span> <span class="op">*</span> <span class="va">dist</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Then, we can modify <code>dp_make.R</code> to include our derive
+function so that it gets built into the data product:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Derive distance</span></span>
+<span><span class="va">dist_m</span> <span class="op">=</span> <span class="fu">derive_dist</span><span class="op">(</span>data_files_read <span class="op">=</span> <span class="va">data_files_read</span>, config <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span></code></pre></div>
+<p>And we also need to make sure our derived data gets added to
+<code>dp_structure</code> within <code>dp_make.R</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Structure data obj</span></span>
+<span><span class="va">data_object</span> <span class="op">=</span> <span class="fu">dp_structure</span><span class="op">(</span>data_files_read <span class="op">=</span> <span class="va">data_files_read</span>, </span>
+<span>                           config <span class="op">=</span> <span class="va">config</span>, </span>
+<span>                           output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dist_m <span class="op">=</span> <span class="va">dist_m</span><span class="op">)</span>, </span>
+<span>                           metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The output can contain many datasets, structured as desired in the
+form of a named list.</p>
 </div>
-<div class="section level2">
-<h2 id="step-5-execute-dp_make-r">Step 5: Execute <code>dp_make.R</code><a class="anchor" aria-label="anchor" href="#step-5-execute-dp_make-r"></a>
-</h2>
+<div class="section level3">
+<h3 id="execute-dp_make-r">Execute <code>dp_make.R</code><a class="anchor" aria-label="anchor" href="#execute-dp_make-r"></a>
+</h3>
 <p>Once satisfied with changes needed to derived features, execute the
 workflow plan (this is included <code>dp_journal.RMD</code>)</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"dp_make.R"</span><span class="op">)</span></span></code></pre></div>
+<p>You can check your built data product by inspecting the rds object in
+the <code>output_files</code> folder before continuing with the next
+steps.</p>
 <p>If data testing has been implemented, the test results can be
 evaluated here and modifications to the code be made as needed.</p>
 </div>
-<div class="section level2">
-<h2 id="step-6-commit">Step 6: commit<a class="anchor" aria-label="anchor" href="#step-6-commit"></a>
-</h2>
-<p>Once data product made meets the expectation, run
-<code>dp_commit</code> providing the commit message. This will complete
-one development cycle, making the data product and code ready for
-deployment.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dpbuild</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dpbuild/man/dp_commit.html" class="external-link">dp_commit</a></span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span>, commit_description <span class="op">=</span> <span class="st">"First dp build: only input data"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="step-7-push-and-deploy">Step 7: Push and deploy<a class="anchor" aria-label="anchor" href="#step-7-push-and-deploy"></a>
+<h2 id="step-5-commit-and-push">Step 5: Commit and push<a class="anchor" aria-label="anchor" href="#step-5-commit-and-push"></a>
 </h2>
-<p>Push the code to GitHub repo.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dp_push</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
-<ul>
-<li><p>If CI/CD is set up, the build process should pick up the
-deployment from here. Specifically, remote server will clone the code,
-build the data product and deploy it to the remote location as specified
-by the configuration set up during the initialization.</p></li>
-<li><p>In the absence of CI/CD, while GitHub push can be skipped, avoid
-doing so. First push the code to the repo and then run
-<code>dpdeploy::dp_deploy(&lt;project path&gt;)</code> to deploy the
-code and metadata representing the data.</p></li>
-</ul>
+<p>Once the data product meets the expectations, you can commit and push
+your code, providing a commit message to <code>dp_commit</code>. NOTE:
+for your push to work:</p>
+<ol style="list-style-type: decimal">
+<li>You should have created the empty repo on the git remote
+(e.g. github)</li>
+<li>
+<code>Sys.getenv("GITHUB_PAT")</code> returns the corresponding
+“GITHUB_PAT”</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dpbuild</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dpbuild/man/dp_commit.html" class="external-link">dp_commit</a></span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span>, commit_description <span class="op">=</span> <span class="st">"First dp build: only input data"</span><span class="op">)</span></span>
+<span><span class="fu">dpbuild</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dpbuild/man/dp_push.html" class="external-link">dp_push</a></span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+<p>This will complete one development cycle, making the data product and
+code ready for deployment. NOTE: committing and and pushing can be
+decoupled, so just as in a standard git workflow, you could add several
+different commits before pushing.</p>
+</div>
+<div class="section level2">
+<h2 id="step-6-deploy">Step 6: Deploy<a class="anchor" aria-label="anchor" href="#step-6-deploy"></a>
+</h2>
+<p>Now your data product is ready to be deployed to the remote location
+with one call to <code>dp_deploy</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dpdeploy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dpdeploy/man/dp_deploy.html" class="external-link">dp_deploy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="step-7-access-data-product">Step 7: Access data product<a class="anchor" aria-label="anchor" href="#step-7-access-data-product"></a>
+</h2>
+<p>Typical access pattern starts with setting up the environment vars,
+but for brevity here we can just use the existing config to connect to
+the board, get the data and list what else is on the board.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dp_connect</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, creds <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">creds</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dp</span> <span class="op">&lt;-</span> <span class="fu">dp_get</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, data_name <span class="op">=</span> <span class="st">"dp_test1"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dp_list</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -222,7 +302,7 @@ code and metadata representing the data.</p></li>
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Afshin Mashadi-Hossein.</p>
+<p>Developed by Afshin Mashadi-Hossein, Clara Amorosi.</p>
 </div>
 
 <div class="pkgdown-footer-right">
