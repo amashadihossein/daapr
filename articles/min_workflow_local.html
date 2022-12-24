@@ -117,10 +117,6 @@ for details of what the initialization does.</p>
 <span><span class="va">board_params_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">board_params_set_local</span><span class="op">(</span>board_alias <span class="op">=</span> <span class="st">"&lt;ALIAS&gt;"</span>,</span>
 <span>                                                        folder <span class="op">=</span> <span class="st">"&lt;FOLDER_PATH&gt;"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Dry function call to setting credentials -- none needed for local board</span></span>
-<span><span class="co"># TODO: add option for no credentials, this is a placeholder</span></span>
-<span><span class="va">creds_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># Initialize dp repo</span></span>
 <span><span class="va">dp_repo</span> <span class="op">&lt;-</span> <span class="fu">dp_init</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"dp_cars"</span>,</span>
 <span>                   project_description <span class="op">=</span> <span class="st">"Cars data product"</span>,</span>
@@ -128,7 +124,6 @@ for details of what the initialization does.</p>
 <span>                   branch_description <span class="op">=</span> <span class="st">"User story 1"</span>,</span>
 <span>                   readme_general_note <span class="op">=</span> <span class="st">"Data product to explore cars stopping distance"</span>,</span>
 <span>                   board_params_set_dried <span class="op">=</span> <span class="va">board_params_set_dried</span>,</span>
-<span>                   creds_set_dried <span class="op">=</span> <span class="va">creds_set_dried</span>,</span>
 <span>                   github_repo_url <span class="op">=</span> <span class="st">"&lt;GIT PATH/dp_cars.git&gt;"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
