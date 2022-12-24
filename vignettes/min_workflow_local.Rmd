@@ -37,10 +37,6 @@ library(daapr)
 board_params_set_dried <- fn_dry(board_params_set_local(board_alias = "<ALIAS>",
                                                         folder = "<FOLDER_PATH>"))
 
-# Dry function call to setting credentials -- none needed for local board
-# TODO: add option for no credentials, this is a placeholder
-creds_set_dried <- fn_dry(2)
-
 # Initialize dp repo
 dp_repo <- dp_init(project_path = "dp_cars",
                    project_description = "Cars data product",
@@ -48,7 +44,6 @@ dp_repo <- dp_init(project_path = "dp_cars",
                    branch_description = "User story 1",
                    readme_general_note = "Data product to explore cars stopping distance",
                    board_params_set_dried = board_params_set_dried,
-                   creds_set_dried = creds_set_dried,
                    github_repo_url = "<GIT PATH/dp_cars.git>")
 ```
 
