@@ -1,18 +1,23 @@
 Package: daapr
 Title: Toolset for implemeting the framework of Data-as-a-Product
 Version: 0.0.0.9005
-Authors@R: 
+Authors@R: c(
     person(given = "Afshin",
            family = "Mashadi-Hossein",
            role = c("aut", "cre"),
            email = "afshin.mashadi-hossein@bms.com",
-           comment =  c(ORCID = "0000-0002-2337-2195"))
+           comment =  c(ORCID = "0000-0002-2337-2195")),
+    person(given = "Clara",
+           family = "Amorosi",
+           role = c("aut"),
+           comment = c(ORCID = "0000-0002-0730-2576"))
+    )
 Description: Collection of packages to build and manage data products.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.2
 Imports:
     pins (== 0.4.5.9001),
     dpi,

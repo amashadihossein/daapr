@@ -22,7 +22,7 @@ the input data remains unchanged.
 ## User story
 
 We are interested in updating the previously built data product `dp-cars-us001` 
-so that it provides distances in cars dataset in cm. see (link to vignette)
+so that it provides distances in cars dataset in cm. See [minimalist example](https://amashadihossein.github.io/daapr/articles/min_wrkfl.html) 
 
 ## Step 1 Clone the existing `dp_cars` project, set env and activate
 
@@ -37,14 +37,15 @@ Sys.setenv("AWS_SECRET" = "<BUCKETS AWS SECRET>")
 Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB_PAT>")
 
 dp_clone(remote_url = "<GIT PATH/dp_cars.git>", branch = "us001")
-dpbuild::dp_activate("./dp_cars/")
+renv::activate(project = "./dp_cars/")
 renv::restore()
+# Check if the project is set up correctly
+is_valid_dp_repository()
 
 library(daapr)
 # get config
 config <- dpconf_get(project_path = ".")
 ```
-
 
 ## Step 2 Modify `dp_make.R`
 
@@ -62,7 +63,8 @@ output <- data_files_read$cars(config = config) %>%
 
 # Structure the input, output, metadata ... you wish to have in your data product
 data_object <- dp_structure(data_files_read = data_files_read,
-                            output = output,config = config)
+                            output = output, config = config)
+
 # save and log the data product built
 dp_write(data_object = data_object, project_path = ".")
 ```
@@ -76,8 +78,8 @@ is simply confirming that `data_object` is anticipated
 source("./dp_make.R")
 ```
 
-Note, this step is not technically not necessary. Build can be automated and 
-done from the code pushed to remote git
+You can check your updated data product by inspecting the rds object in the `output_files`
+folder before continuing with the next steps.
 
 ## Step 5 Commit and push
 
@@ -85,13 +87,12 @@ Commit the changes and push the modified `dp_cars` to remote git repo
 
 ```{r dp_com_push, eval=FALSE}
 dp_commit(project_path = ".", commit_description = "Added cm feature")
-dp_push(project_path = ".", remote_url = "<GIT PATH/dp_cars.git>" )
+dp_push(project_path = ".")
 ```
 
 ## Step 6 Deploy
 
-Deploy (as well as build) may be done on a different machine (e.g. CI) but for 
-brevity here we can just use the local build and deploy manually
+Deploy the data product: 
 
 ```{r deploy, eval=FALSE}
 dp_deploy()
@@ -101,7 +102,7 @@ dp_deploy()
 ## Step 7: Data access (optional)
 
 If you wanted to access the from the remote resource, you can simply connect and
-and cache the data.
+and pull the data.
 
 ```{r dpi_, eval=FALSE}
 dp_connect(board_params = config$board_params, creds = config$creds)
@@ -110,6 +111,4 @@ dp <- dp_get(board_params = config$board_params, data_name = "dp-cars-us001")
 
 dp_list(board_params = config$board_params)
 ```
-
-
 
