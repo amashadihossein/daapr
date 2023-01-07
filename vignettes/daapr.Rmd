@@ -30,24 +30,29 @@ repo url to `dp_init`. An example would be as follows:
 ```{r dp_init, eval = F}
 library(daapr)
 
-board_params_set_dried  <- fn_dry(board_params_set_s3(board_alias = "cars_board",
-                                                      bucket_name = "daap_bucket",
-                                                      region = "us-west-1"))
+board_params_set_dried <- fn_dry(board_params_set_s3(
+  board_alias = "cars_board",
+  bucket_name = "daap_bucket",
+  region = "us-west-1"
+))
 
 # Dry function call to setting credentials
-creds_set_dried <- fn_dry(creds_set_aws(key = Sys.getenv("AWS_KEY"), 
-                                        secret = Sys.getenv("AWS_SECRET") ))
+creds_set_dried <- fn_dry(creds_set_aws(
+  key = Sys.getenv("AWS_KEY"),
+  secret = Sys.getenv("AWS_SECRET")
+))
 
 # Initialize dp repo
-dp_repo <- dp_init(project_path = "dp_test1",
-                   project_description = "Test data product",
-                   branch_name = "us001",
-                   branch_description = "User story 1",
-                   readme_general_note = "This data object is generated for testing purposes",
-                   board_params_set_dried = board_params_set_dried,
-                   creds_set_dried = creds_set_dried,
-                   github_repo_url = "<GIT PATH/dp_test1.git>")
-
+dp_repo <- dp_init(
+  project_path = "dp_test1",
+  project_description = "Test data product",
+  branch_name = "us001",
+  branch_description = "User story 1",
+  readme_general_note = "This data object is generated for testing purposes",
+  board_params_set_dried = board_params_set_dried,
+  creds_set_dried = creds_set_dried,
+  github_repo_url = "<GIT PATH/dp_test1.git>"
+)
 ```
 
 **NOTE:** `dp_init` builds the yaml config file, `daap_config.yaml`, with all the 
@@ -131,10 +136,9 @@ in the R project directory.
 
 ```{r derive_fn, eval = F}
 derive_dist <- function(data_files_read, config) {
-  
-  output <- data_files_read$cars(config = config) %>% 
+  output <- data_files_read$cars(config = config) %>%
     dplyr::mutate(dist_m = 0.3048 * dist)
-  
+
   return(output)
 }
 ```
@@ -144,7 +148,7 @@ built into the data product:
 
 ```{r dpmake_1, eval = F}
 # Derive distance
-dist_m = derive_dist(data_files_read = data_files_read, config = config)
+dist_m <- derive_dist(data_files_read = data_files_read, config = config)
 ```
 
 And we also need to make sure our derived data gets added to `dp_structure` within
@@ -152,10 +156,12 @@ And we also need to make sure our derived data gets added to `dp_structure` with
 
 ```{r dpmake_2, eval = F}
 # Structure data obj
-data_object = dp_structure(data_files_read = data_files_read, 
-                           config = config, 
-                           output = list(dist_m = dist_m), 
-                           metadata = list())
+data_object <- dp_structure(
+  data_files_read = data_files_read,
+  config = config,
+  output = list(dist_m = dist_m),
+  metadata = list()
+)
 ```
 
 The output can contain many datasets, structured as desired in the form of a named list.

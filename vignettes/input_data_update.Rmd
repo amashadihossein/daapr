@@ -45,8 +45,9 @@ renv::restore()
 is_valid_dp_repository()
 
 # only necessary if you re-started your R session
-if(!"daapr" %in% (.packages()))
+if (!"daapr" %in% (.packages())) {
   library("daapr")
+}
 
 # Set up "promised" env variables for remote data repository
 Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
@@ -68,7 +69,7 @@ to metadata representation of the read datasets. Given the goal to update the
 
 ```{r dpinput_1, eval = F}
 # Upload data into input_files folder
-readr::write_csv(x = cars[1:45,], file = "./input_files/cars.csv")
+readr::write_csv(x = cars[1:45, ], file = "./input_files/cars.csv")
 
 # Map all input_files content and optionally clean file labels in the map
 input_map <- dpinput_map(project_path = ".")
@@ -112,8 +113,10 @@ source("dp_make.R")
 At this point, you can commit and push your code.
 
 ```{r dpcommit_, eval = F}
-dp_commit(project_path = ".", 
-          commit_description = "Updated input cars, dropping the last 5 rows")
+dp_commit(
+  project_path = ".",
+  commit_description = "Updated input cars, dropping the last 5 rows"
+)
 dp_push(project_path = ".")
 ```
 
