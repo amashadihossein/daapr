@@ -57,13 +57,15 @@ Open `dp_make.R` and edit to add a single line
 data_files_read <- dpinput_read()
 
 # build your ouput data
-output <- data_files_read$cars(config = config) %>% 
+output <- data_files_read$cars(config = config) %>%
   dplyr::mutate(dist_m = 0.3048 * dist) %>%
-  dplyr::mutate(dist_cm = 100 *  dist_m)
+  dplyr::mutate(dist_cm = 100 * dist_m)
 
 # Structure the input, output, metadata ... you wish to have in your data product
-data_object <- dp_structure(data_files_read = data_files_read,
-                            output = output, config = config)
+data_object <- dp_structure(
+  data_files_read = data_files_read,
+  output = output, config = config
+)
 
 # save and log the data product built
 dp_write(data_object = data_object, project_path = ".")

@@ -5,7 +5,7 @@
 msg <- function(..., startup = FALSE) {
   if (startup) {
     # if (!isTRUE(getOption("tidyverse.quiet"))) {
-      packageStartupMessage(text_col(...))
+    packageStartupMessage(text_col(...))
     # }
   } else {
     message(text_col(...))
@@ -26,5 +26,4 @@ text_col <- function(x) {
   theme <- rstudioapi::getThemeInfo()
 
   if (isTRUE(theme$dark)) crayon::white(x) else crayon::black(x)
-
 }

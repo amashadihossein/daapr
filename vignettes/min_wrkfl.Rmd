@@ -32,23 +32,29 @@ the getting started [vignette](https://amashadihossein.github.io/daapr/articles/
 ```{r dp_init_, eval = F}
 library(daapr)
 
-board_params_set_dried  <- fn_dry(board_params_set_s3(board_alias = "<ALIAS>",
-                                                      bucket_name = "<BUCKET>",
-                                                      region = "<REIGION>"))
+board_params_set_dried <- fn_dry(board_params_set_s3(
+  board_alias = "<ALIAS>",
+  bucket_name = "<BUCKET>",
+  region = "<REIGION>"
+))
 
 # Dry function call to setting credentials
-creds_set_dried <- fn_dry(creds_set_aws(key = Sys.getenv("AWS_KEY"),
-                                        secret = Sys.getenv("AWS_SECRET") ))
+creds_set_dried <- fn_dry(creds_set_aws(
+  key = Sys.getenv("AWS_KEY"),
+  secret = Sys.getenv("AWS_SECRET")
+))
 
 # Initialize dp repo
-dp_repo <- dp_init(project_path = "dp_cars",
-                   project_description = "Cars data product",
-                   branch_name = "us001",
-                   branch_description = "User story 1",
-                   readme_general_note = "Data product to explore cars stopping distance",
-                   board_params_set_dried = board_params_set_dried,
-                   creds_set_dried = creds_set_dried,
-                   github_repo_url = "<GIT PATH/dp_cars.git>")
+dp_repo <- dp_init(
+  project_path = "dp_cars",
+  project_description = "Cars data product",
+  branch_name = "us001",
+  branch_description = "User story 1",
+  readme_general_note = "Data product to explore cars stopping distance",
+  board_params_set_dried = board_params_set_dried,
+  creds_set_dried = creds_set_dried,
+  github_repo_url = "<GIT PATH/dp_cars.git>"
+)
 ```
 
 ## Step 2: Set up the working environment
@@ -63,8 +69,9 @@ activate and set up the sandbox for this project.
 setwd(dp_repo)
 
 # only necessary if you re-started your R session
-if(!"daapr" %in% (.packages()))
+if (!"daapr" %in% (.packages())) {
   library("daapr")
+}
 
 # Set up "promised" env variables for remote data repository
 Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
@@ -108,12 +115,14 @@ product is built.
 data_files_read <- dpinput_read()
 
 # build your output data
-output <- data_files_read$cars(config = config) %>% 
+output <- data_files_read$cars(config = config) %>%
   dplyr::mutate(dist_m = 0.3048 * dist)
 
 # Structure the input, output, metadata ... you wish to have in your data product
-data_object <- dp_structure(data_files_read = data_files_read,
-                            output = output, config = config)
+data_object <- dp_structure(
+  data_files_read = data_files_read,
+  output = output, config = config
+)
 # save and log the data product built
 dp_write(data_object = data_object, project_path = ".")
 ```
