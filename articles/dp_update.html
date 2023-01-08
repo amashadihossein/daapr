@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">daapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,13 +136,15 @@ your <code>GITHUB_PAT</code> to the environment as shown below.</p>
 <span><span class="va">data_files_read</span> <span class="op">&lt;-</span> <span class="fu">dpinput_read</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># build your ouput data</span></span>
-<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="va">data_files_read</span><span class="op">$</span><span class="fu">cars</span><span class="op">(</span>config <span class="op">=</span> <span class="va">config</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="va">data_files_read</span><span class="op">$</span><span class="fu">cars</span><span class="op">(</span>config <span class="op">=</span> <span class="va">config</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dist_m <span class="op">=</span> <span class="fl">0.3048</span> <span class="op">*</span> <span class="va">dist</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dist_cm <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span>  <span class="va">dist_m</span><span class="op">)</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dist_cm <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">dist_m</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Structure the input, output, metadata ... you wish to have in your data product</span></span>
-<span><span class="va">data_object</span> <span class="op">&lt;-</span> <span class="fu">dp_structure</span><span class="op">(</span>data_files_read <span class="op">=</span> <span class="va">data_files_read</span>,</span>
-<span>                            output <span class="op">=</span> <span class="va">output</span>, config <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span>
+<span><span class="va">data_object</span> <span class="op">&lt;-</span> <span class="fu">dp_structure</span><span class="op">(</span></span>
+<span>  data_files_read <span class="op">=</span> <span class="va">data_files_read</span>,</span>
+<span>  output <span class="op">=</span> <span class="va">output</span>, config <span class="op">=</span> <span class="va">config</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># save and log the data product built</span></span>
 <span><span class="fu">dp_write</span><span class="op">(</span>data_object <span class="op">=</span> <span class="va">data_object</span>, project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>

@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">daapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,8 +124,9 @@ restart the sandbox for the project.</p>
 <span><span class="fu">is_valid_dp_repository</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># only necessary if you re-started your R session</span></span>
-<span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="st">"daapr"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html" class="external-link">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="st">"daapr"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html" class="external-link">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"daapr"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Set up "promised" env variables for remote data repository</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span> <span class="op">=</span> <span class="st">"&lt;BUCKETS AWS KEY&gt;"</span><span class="op">)</span></span>
@@ -146,7 +147,7 @@ datasets. Given the goal to update the <code>cars.csv</code>, we
 re-upload the corrected data first.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Upload data into input_files folder</span></span>
-<span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">45</span>,<span class="op">]</span>, file <span class="op">=</span> <span class="st">"./input_files/cars.csv"</span><span class="op">)</span></span>
+<span><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html" class="external-link">write_csv</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">45</span>, <span class="op">]</span>, file <span class="op">=</span> <span class="st">"./input_files/cars.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Map all input_files content and optionally clean file labels in the map</span></span>
 <span><span class="va">input_map</span> <span class="op">&lt;-</span> <span class="fu">dpinput_map</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
@@ -186,8 +187,10 @@ updated input data.</p>
 </h2>
 <p>At this point, you can commit and push your code.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dp_commit</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span>, </span>
-<span>          commit_description <span class="op">=</span> <span class="st">"Updated input cars, dropping the last 5 rows"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">dp_commit</span><span class="op">(</span></span>
+<span>  project_path <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  commit_description <span class="op">=</span> <span class="st">"Updated input cars, dropping the last 5 rows"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu">dp_push</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">daapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,23 +111,29 @@ for details of what the initialization does.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">daapr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">board_params_set_dried</span>  <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">board_params_set_s3</span><span class="op">(</span>board_alias <span class="op">=</span> <span class="st">"&lt;ALIAS&gt;"</span>,</span>
-<span>                                                      bucket_name <span class="op">=</span> <span class="st">"&lt;BUCKET&gt;"</span>,</span>
-<span>                                                      region <span class="op">=</span> <span class="st">"&lt;REIGION&gt;"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">board_params_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">board_params_set_s3</span><span class="op">(</span></span>
+<span>  board_alias <span class="op">=</span> <span class="st">"&lt;ALIAS&gt;"</span>,</span>
+<span>  bucket_name <span class="op">=</span> <span class="st">"&lt;BUCKET&gt;"</span>,</span>
+<span>  region <span class="op">=</span> <span class="st">"&lt;REIGION&gt;"</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Dry function call to setting credentials</span></span>
-<span><span class="va">creds_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">creds_set_aws</span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span><span class="op">)</span>,</span>
-<span>                                        secret <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_SECRET"</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">creds_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">creds_set_aws</span><span class="op">(</span></span>
+<span>  key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span><span class="op">)</span>,</span>
+<span>  secret <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"AWS_SECRET"</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Initialize dp repo</span></span>
-<span><span class="va">dp_repo</span> <span class="op">&lt;-</span> <span class="fu">dp_init</span><span class="op">(</span>project_path <span class="op">=</span> <span class="st">"dp_cars"</span>,</span>
-<span>                   project_description <span class="op">=</span> <span class="st">"Cars data product"</span>,</span>
-<span>                   branch_name <span class="op">=</span> <span class="st">"us001"</span>,</span>
-<span>                   branch_description <span class="op">=</span> <span class="st">"User story 1"</span>,</span>
-<span>                   readme_general_note <span class="op">=</span> <span class="st">"Data product to explore cars stopping distance"</span>,</span>
-<span>                   board_params_set_dried <span class="op">=</span> <span class="va">board_params_set_dried</span>,</span>
-<span>                   creds_set_dried <span class="op">=</span> <span class="va">creds_set_dried</span>,</span>
-<span>                   github_repo_url <span class="op">=</span> <span class="st">"&lt;GIT PATH/dp_cars.git&gt;"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dp_repo</span> <span class="op">&lt;-</span> <span class="fu">dp_init</span><span class="op">(</span></span>
+<span>  project_path <span class="op">=</span> <span class="st">"dp_cars"</span>,</span>
+<span>  project_description <span class="op">=</span> <span class="st">"Cars data product"</span>,</span>
+<span>  branch_name <span class="op">=</span> <span class="st">"us001"</span>,</span>
+<span>  branch_description <span class="op">=</span> <span class="st">"User story 1"</span>,</span>
+<span>  readme_general_note <span class="op">=</span> <span class="st">"Data product to explore cars stopping distance"</span>,</span>
+<span>  board_params_set_dried <span class="op">=</span> <span class="va">board_params_set_dried</span>,</span>
+<span>  creds_set_dried <span class="op">=</span> <span class="va">creds_set_dried</span>,</span>
+<span>  github_repo_url <span class="op">=</span> <span class="st">"&lt;GIT PATH/dp_cars.git&gt;"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-2-set-up-the-working-environment">Step 2: Set up the working environment<a class="anchor" aria-label="anchor" href="#step-2-set-up-the-working-environment"></a>
@@ -142,8 +148,9 @@ this project.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">dp_repo</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># only necessary if you re-started your R session</span></span>
-<span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="st">"daapr"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html" class="external-link">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="st">"daapr"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html" class="external-link">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"daapr"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Set up "promised" env variables for remote data repository</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"AWS_KEY"</span> <span class="op">=</span> <span class="st">"&lt;BUCKETS AWS KEY&gt;"</span><span class="op">)</span></span>
@@ -185,12 +192,14 @@ data product is built.</p>
 <span><span class="va">data_files_read</span> <span class="op">&lt;-</span> <span class="fu">dpinput_read</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># build your output data</span></span>
-<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="va">data_files_read</span><span class="op">$</span><span class="fu">cars</span><span class="op">(</span>config <span class="op">=</span> <span class="va">config</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="va">data_files_read</span><span class="op">$</span><span class="fu">cars</span><span class="op">(</span>config <span class="op">=</span> <span class="va">config</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dist_m <span class="op">=</span> <span class="fl">0.3048</span> <span class="op">*</span> <span class="va">dist</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Structure the input, output, metadata ... you wish to have in your data product</span></span>
-<span><span class="va">data_object</span> <span class="op">&lt;-</span> <span class="fu">dp_structure</span><span class="op">(</span>data_files_read <span class="op">=</span> <span class="va">data_files_read</span>,</span>
-<span>                            output <span class="op">=</span> <span class="va">output</span>, config <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span>
+<span><span class="va">data_object</span> <span class="op">&lt;-</span> <span class="fu">dp_structure</span><span class="op">(</span></span>
+<span>  data_files_read <span class="op">=</span> <span class="va">data_files_read</span>,</span>
+<span>  output <span class="op">=</span> <span class="va">output</span>, config <span class="op">=</span> <span class="va">config</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co"># save and log the data product built</span></span>
 <span><span class="fu">dp_write</span><span class="op">(</span>data_object <span class="op">=</span> <span class="va">data_object</span>, project_path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
 <p>Why so many steps if the above chunk is the main logic? The pay off
