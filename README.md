@@ -32,8 +32,10 @@ from this repo.
 
 ``` r
 # Remove previously installed core daapr packages and update
-remove.packages(intersect(rownames(installed.packages()), 
-                          c("pins","dpi","dpbuild","dpdeploy","daapr")))
+remove.packages(intersect(
+  rownames(installed.packages()),
+  c("pins", "dpi", "dpbuild", "dpdeploy", "daapr")
+))
 ```
 
 For released version

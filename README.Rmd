@@ -42,8 +42,10 @@ remove any existing packages and start with a fresh pull from this repo.
 
 ```{r remove_old_pkg, eval = F}
 # Remove previously installed core daapr packages and update
-remove.packages(intersect(rownames(installed.packages()), 
-                          c("pins","dpi","dpbuild","dpdeploy","daapr")))
+remove.packages(intersect(
+  rownames(installed.packages()),
+  c("pins", "dpi", "dpbuild", "dpdeploy", "daapr")
+))
 ```
 
 For released version

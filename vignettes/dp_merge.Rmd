@@ -42,22 +42,28 @@ new project workflow for details of what the initialization does.
 ```{r dp_init_, eval = F}
 library(daapr)
 
-board_params_set_dried  <- fn_dry(board_params_set_s3(board_alias = "<ALIAS>",
-                                                      bucket_name = "<BUCKET>",
-                                                      region = "<REIGION>"))
+board_params_set_dried <- fn_dry(board_params_set_s3(
+  board_alias = "<ALIAS>",
+  bucket_name = "<BUCKET>",
+  region = "<REIGION>"
+))
 
 # Dry function call to setting credentials
-creds_set_dried <- fn_dry(creds_set_aws(key = Sys.getenv("AWS_KEY"),
-                                        secret = Sys.getenv("AWS_SECRET") ))
+creds_set_dried <- fn_dry(creds_set_aws(
+  key = Sys.getenv("AWS_KEY"),
+  secret = Sys.getenv("AWS_SECRET")
+))
 
 # Initialize dp repo
-dp_repo <- dp_init(project_path = "dp_xcars",
-                   project_description = "Cars and mtcars combined data product",
-                   branch_name = "us001",
-                   branch_description = "User story 1",
-                   readme_general_note = "Data product combining cars and metcars",
-                   board_params_set_dried = board_params_set_dried,
-                   creds_set_dried = creds_set_dried)
+dp_repo <- dp_init(
+  project_path = "dp_xcars",
+  project_description = "Cars and mtcars combined data product",
+  branch_name = "us001",
+  branch_description = "User story 1",
+  readme_general_note = "Data product combining cars and metcars",
+  board_params_set_dried = board_params_set_dried,
+  creds_set_dried = creds_set_dried
+)
 ```
 
 
@@ -72,8 +78,9 @@ activate and set up the sandbox for this project.
 setwd(dp_repo)
 
 # only necessary if you re-started your R session
-if(!"daapr" %in% (.packages()))
+if (!"daapr" %in% (.packages())) {
   library("daapr")
+}
 
 # Set up "promised" env variables
 Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
@@ -82,8 +89,8 @@ Sys.setenv("AWS_SECRET" = "<BUCKETS AWS SECRET>")
 # Retrieve configuration
 config <- dpconf_get(project_path = ".")
 
-# Set up remote git env variable so you can directly push your code to git 
-# remote. This will only be used when you are pushing the code, but we can set 
+# Set up remote git env variable so you can directly push your code to git
+# remote. This will only be used when you are pushing the code, but we can set
 # it now as we are setting up our working env. If you don't want to deal with
 # this you can skip this. You can still go quite far in the workflow
 Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
@@ -100,26 +107,38 @@ prior to build the `dp_xcars` logic.
 dp_connect(board_params = config$board_params, creds = config$creds)
 
 # specify which versions of data products to use
-version1 = "<version1>"
-version2 = "<version2>"
-dp_cars <- dp_get(board_params = config$board_params,
-                  data_name = "dp-cars-us001", version = version1)
+version1 <- "<version1>"
+version2 <- "<version2>"
+dp_cars <- dp_get(
+  board_params = config$board_params,
+  data_name = "dp-cars-us001", version = version1
+)
 
-dp_mtcars <- dp_get(board_params = config$board_params,
-                  data_name = "dp-mtcars-us001", version = version2)
+dp_mtcars <- dp_get(
+  board_params = config$board_params,
+  data_name = "dp-mtcars-us001", version = version2
+)
 
 # build input data by converting input data products to links
-input = list(dp_cars = dp_tolink(data_name = "dp-cars-us001",
-                                 data_version = version1),
-             dp_mtcars = dp_tolink(data_name = "dp-mtcars-us001",
-                                   data_version = version2))
+input <- list(
+  dp_cars = dp_tolink(
+    data_name = "dp-cars-us001",
+    data_version = version1
+  ),
+  dp_mtcars = dp_tolink(
+    data_name = "dp-mtcars-us001",
+    data_version = version2
+  )
+)
 
 # build your output data
 output <- list(cars = dp_cars$input$cars, mt_cars = dp_mtcars$input$mtcars)
 
 # Structure the input, output, metadata ... you wish to have in your data product
-data_object <- dp_structure(data_files_read = input,
-                            output = output, config = config)
+data_object <- dp_structure(
+  data_files_read = input,
+  output = output, config = config
+)
 
 # save and log the data product built
 dp_write(data_object = data_object, project_path = ".")
