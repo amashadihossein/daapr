@@ -79,6 +79,10 @@ setwd(dp_repo)
 
 You can double-check that everything is set up correctly with `is_valid_dp_repository()`
 
+Note: to make sure everything is set up correctly, open the dp_repo Project 
+in order to restart your R session and load your renv library. You can do this 
+via File > Open Project and select the relevant .Rproj file.
+
 ### Add starter script
 
 This step is optional, but highly recommended. The starter code includes:
@@ -148,7 +152,7 @@ built into the data product:
 
 ```{r dpmake_1, eval = F}
 # Derive distance
-dist_m <- derive_dist(data_files_read = data_files_read, config = config)
+dist_m = derive_dist(data_files_read = data_files_read, config = config)
 ```
 
 And we also need to make sure our derived data gets added to `dp_structure` within
@@ -156,7 +160,7 @@ And we also need to make sure our derived data gets added to `dp_structure` with
 
 ```{r dpmake_2, eval = F}
 # Structure data obj
-data_object <- dp_structure(
+data_object = dp_structure(
   data_files_read = data_files_read,
   config = config,
   output = list(dist_m = dist_m),

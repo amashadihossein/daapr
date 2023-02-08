@@ -33,9 +33,3 @@ If you have an existing project that uses drake and you'd like to switch
 to using targets, you can use `dpcode_add()` to get the relevant `targets` template
 files, but you will have to delete or rename your existing `dp_make.R` and `dp_journal.Rmd` 
 files first. 
-
-## What if sourcing `dp_make.R` doesn't find my new input data?
-
-If you have a project that uses `drake` (you can check this by looking for a .drake
-folder in your project repository), you may need to manually clear the cache to update the input
-data. You can do this by running `drake::clean()` before sourcing `dp_make.R`.
