@@ -219,7 +219,7 @@ and list what else is on the board.
 ```{r dpi_, eval=FALSE}
 dp_connect(board_params = config$board_params, creds = config$creds)
 
-dp <- dp_get(board_params = config$board_params, data_name = "dp_test1")
+dp <- dp_get(board_params = config$board_params, data_name = "dp-test1-us001")
 
 dp_list(board_params = config$board_params)
 ```
