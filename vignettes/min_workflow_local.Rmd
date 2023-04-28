@@ -1,8 +1,8 @@
 ---
-title: "A minimalist example with local data"
+title: "A minimalist example deployed locally"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{A minimalist example with local data}
+  %\VignetteIndexEntry{A minimalist example deployed locally}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -28,7 +28,11 @@ dataset in metric unit. See `?cars` for additional detail about the dataset.
 ## Step 1: Initialize the project
 
 As this is a new project, we initialize the project using `dpbuild::dp_init`. See
-the getting started [vignette](https://amashadihossein.github.io/daapr/articles/daapr.html) for details of what the initialization does.
+the getting started [vignette](https://amashadihossein.github.io/daapr/articles/daapr.html) 
+for details of what the initialization does.
+
+Note: when providing board params to `board_params_set_local`, make sure to specify 
+an absolute path for "folder", NOT a path relative to your current path. 
 
 ```{r dp_init, eval=F}
 library(daapr)
