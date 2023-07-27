@@ -31,7 +31,6 @@ repo url to `dp_init`. An example would be as follows:
 library(daapr)
 
 board_params_set_dried <- fn_dry(board_params_set_s3(
-  board_alias = "cars_board",
   bucket_name = "daap_bucket",
   region = "us-west-1"
 ))
@@ -61,7 +60,7 @@ instructions for function calls. In the above example, two instructions for two
 function calls are provided. These function call instructions can be thought of 
 as "dried" functions which could be "hydrated" later when executed:
 
-- `board_params_set_s3(board_alias = "cars_board", bucket_name = "daap_bucket", region = "us-west-1")`
+- `board_params_set_s3(bucket_name = "daap_bucket", region = "us-west-1")`
 - `creds_set_aws(key = Sys.getenv("AWS_KEY"), secret = Sys.getenv("AWS_SECRET") )`
 
 Note that the second function call relies on "AWS_KEY" and "AWS_SECRET" to be 
@@ -217,10 +216,10 @@ here we can just use the existing config to connect to the board, get the data
 and list what else is on the board.
 
 ```{r dpi_, eval=FALSE}
-dp_connect(board_params = config$board_params, creds = config$creds)
+board_object <- dp_connect(board_params = config$board_params, creds = config$creds)
 
-dp <- dp_get(board_params = config$board_params, data_name = "dp-test1-us001")
+dp <- dp_get(board_object = board_object, data_name = "dp-test1-us001")
 
-dp_list(board_params = config$board_params)
+dp_list(board_object = board_object)
 ```
 

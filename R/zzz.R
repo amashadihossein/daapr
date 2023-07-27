@@ -15,17 +15,17 @@
 
   crayon::num_colors(TRUE)
 
-  pins_version <- as.character(utils::packageVersion("pins"))
-
-  if (pins_version != "0.4.5.9001") {
-    cli::cli_alert_danger(glue::glue(
-      "Pins version {pins_version} lacks ",
-      "support for labkey pins! Remove pins ",
-      "{pins_version} and install custom ",
-      " pins packge 0.4.5.9001 from ",
-      "https://github.com/amashadihossein/pins"
-    ))
-  }
+  # pins_version <- as.character(utils::packageVersion("pins"))
+  #
+  # if (pins_version != "0.4.5.9001") {
+  #   cli::cli_alert_danger(glue::glue(
+  #     "Pins version {pins_version} lacks ",
+  #     "support for labkey pins! Remove pins ",
+  #     "{pins_version} and install custom ",
+  #     " pins packge 0.4.5.9001 from ",
+  #     "https://github.com/amashadihossein/pins"
+  #   ))
+  # }
   daapr_attach()
 
   # if (!"package:conflicted" %in% search()) {

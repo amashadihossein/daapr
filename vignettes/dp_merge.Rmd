@@ -43,7 +43,6 @@ new project workflow for details of what the initialization does.
 library(daapr)
 
 board_params_set_dried <- fn_dry(board_params_set_s3(
-  board_alias = "<ALIAS>",
   bucket_name = "<BUCKET>",
   region = "<REIGION>"
 ))
@@ -104,18 +103,18 @@ the data product, we would mapped and synced it as done when building `dp_cars`,
 prior to build the `dp_xcars` logic.
 
 ```{r dpbuild, eval = F}
-dp_connect(board_params = config$board_params, creds = config$creds)
+board_object <- dp_connect(board_params = config$board_params, creds = config$creds)
 
 # specify which versions of data products to use
 version1 <- "<version1>"
 version2 <- "<version2>"
 dp_cars <- dp_get(
-  board_params = config$board_params,
+  board_object = board_object,
   data_name = "dp-cars-us001", version = version1
 )
 
 dp_mtcars <- dp_get(
-  board_params = config$board_params,
+  board_object = board_object,
   data_name = "dp-mtcars-us001", version = version2
 )
 
@@ -172,9 +171,9 @@ here we can just use the existing config to connect to the board, get the data
 and list what else is on the board.
 
 ```{r dpi_, eval=FALSE}
-dp_connect(board_params = config$board_params, creds = config$creds)
+board_object <- dp_connect(board_params = config$board_params, creds = config$creds)
 
-dp <- dp_get(board_params = config$board_params, data_name = "dp-xcars-us001")
+dp <- dp_get(board_object = board_object, data_name = "dp-xcars-us001")
 
-dp_list(board_params = config$board_params)
+dp_list(board_object = board_object)
 ```
