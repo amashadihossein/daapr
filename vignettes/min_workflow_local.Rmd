@@ -39,7 +39,6 @@ library(daapr)
 
 # Dry function call to set board location and name
 board_params_set_dried <- fn_dry(board_params_set_local(
-  board_alias = "<ALIAS>",
   folder = "<FOLDER_PATH>"
 ))
 
@@ -134,8 +133,7 @@ reproduce the data product.
 
 ## Step 5: Commit and push
 
-At this point, you can commit and push your code.
-NOTE: for your push to work
+At this point, you can commit and push your code. NOTE: for your push to work:
 
 1. You should have created the empty repo on the git remote (e.g. github)
 2. `Sys.getenv("GITHUB_PAT")` returns the corresponding "GITHUB_PAT"
@@ -163,9 +161,9 @@ here we can just use the existing config to connect to the board, get the data
 and list what else is on the board.
 
 ```{r dpi_, eval=FALSE}
-dp_connect(board_params = config$board_params, creds = config$creds)
+board_object <- dp_connect(board_params = config$board_params)
 
-dp <- dp_get(board_params = config$board_params, data_name = "dp-cars-us001")
+dp <- dp_get(board_object = board_object, data_name = "dp-cars-us001")
 
-dp_list(board_params = config$board_params)
+dp_list(board_object = board_object)
 ```
