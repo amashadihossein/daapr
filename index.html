@@ -89,20 +89,12 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><strong>Read this section carefully!</strong></p>
-<p><code>daapr</code> installs the core packages of the DaaP framework, <a href="https://github.com/amashadihossein/dpbuild" class="external-link"><code>dpbuild</code></a>, <a href="https://github.com/amashadihossein/dpdeploy" class="external-link"><code>dpdeploy</code></a> and <a href="https://github.com/amashadihossein/dpi" class="external-link"><code>dpi</code></a>, along with a custom version of the <a href="https://github.com/amashadihossein/pins" class="external-link"><code>pins</code></a> package.</p>
-<p>Note: currently <code>daapr</code> uses a custom version of the <code>pins</code> package. This will change in the future to stay in sync with the latest <a href="https://pins.rstudio.com/" class="external-link"><code>pins</code></a>. However, at this point, it is important to remove any existing packages and start with a fresh pull from this repo.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Remove previously installed core daapr packages and update</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/remove.packages.html" class="external-link">remove.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html" class="external-link">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pins"</span>, <span class="st">"dpi"</span>, <span class="st">"dpbuild"</span>, <span class="st">"dpdeploy"</span>, <span class="st">"daapr"</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><code>daapr</code> installs the core packages of the DaaP framework, <a href="https://github.com/amashadihossein/dpbuild" class="external-link"><code>dpbuild</code></a>, <a href="https://github.com/amashadihossein/dpdeploy" class="external-link"><code>dpdeploy</code></a> and <a href="https://github.com/amashadihossein/dpi" class="external-link"><code>dpi</code></a>.</p>
 <p>For released version</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"amashadihossein/daapr"</span><span class="op">)</span></span></code></pre></div>
 <p>For dev version</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span>repo <span class="op">=</span> <span class="st">"amashadihossein/daapr"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
