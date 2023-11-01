@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">daapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,10 +51,13 @@
     <a class="dropdown-item" href="../articles/min_wrkfl.html">A minimalist example</a>
     <a class="dropdown-item" href="../articles/input_data_update.html">Update input data</a>
     <a class="dropdown-item" href="../articles/dp_update.html">Update build logic</a>
-    <a class="dropdown-item" href="../articles/min_workflow_local.html">A minimalist example with local data</a>
+    <a class="dropdown-item" href="../articles/min_workflow_local.html">A minimalist example deployed locally</a>
     <a class="dropdown-item" href="../articles/dp_merge.html">Combine two data products</a>
     <a class="dropdown-item" href="../articles/faq.html">Frequently Asked Questions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -112,7 +115,6 @@ for details of what the initialization does.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">daapr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">board_params_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">board_params_set_s3</span><span class="op">(</span></span>
-<span>  board_alias <span class="op">=</span> <span class="st">"&lt;ALIAS&gt;"</span>,</span>
 <span>  bucket_name <span class="op">=</span> <span class="st">"&lt;BUCKET&gt;"</span>,</span>
 <span>  region <span class="op">=</span> <span class="st">"&lt;REIGION&gt;"</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
@@ -243,11 +245,11 @@ to work</p>
 brevity here we can just use the existing config to connect to the
 board, get the data and list what else is on the board.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dp_connect</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, creds <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">creds</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">board_object</span> <span class="op">&lt;-</span> <span class="fu">dp_connect</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, creds <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">creds</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dp</span> <span class="op">&lt;-</span> <span class="fu">dp_get</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, data_name <span class="op">=</span> <span class="st">"dp-cars-us001"</span><span class="op">)</span></span>
+<span><span class="va">dp</span> <span class="op">&lt;-</span> <span class="fu">dp_get</span><span class="op">(</span>board_object <span class="op">=</span> <span class="va">board_object</span>, data_name <span class="op">=</span> <span class="st">"dp-cars-us001"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dp_list</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">dp_list</span><span class="op">(</span>board_object <span class="op">=</span> <span class="va">board_object</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

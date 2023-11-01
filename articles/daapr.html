@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">daapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,10 +51,13 @@
     <a class="dropdown-item" href="../articles/min_wrkfl.html">A minimalist example</a>
     <a class="dropdown-item" href="../articles/input_data_update.html">Update input data</a>
     <a class="dropdown-item" href="../articles/dp_update.html">Update build logic</a>
-    <a class="dropdown-item" href="../articles/min_workflow_local.html">A minimalist example with local data</a>
+    <a class="dropdown-item" href="../articles/min_workflow_local.html">A minimalist example deployed locally</a>
     <a class="dropdown-item" href="../articles/dp_merge.html">Combine two data products</a>
     <a class="dropdown-item" href="../articles/faq.html">Frequently Asked Questions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -110,7 +113,6 @@ follows:</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">daapr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">board_params_set_dried</span> <span class="op">&lt;-</span> <span class="fu">fn_dry</span><span class="op">(</span><span class="fu">board_params_set_s3</span><span class="op">(</span></span>
-<span>  board_alias <span class="op">=</span> <span class="st">"cars_board"</span>,</span>
 <span>  bucket_name <span class="op">=</span> <span class="st">"daap_bucket"</span>,</span>
 <span>  region <span class="op">=</span> <span class="st">"us-west-1"</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
@@ -140,7 +142,7 @@ for two function calls are provided. These function call instructions
 can be thought of as “dried” functions which could be “hydrated” later
 when executed:</p>
 <ul>
-<li><code>board_params_set_s3(board_alias = "cars_board", bucket_name = "daap_bucket", region = "us-west-1")</code></li>
+<li><code>board_params_set_s3(bucket_name = "daap_bucket", region = "us-west-1")</code></li>
 <li><code>creds_set_aws(key = Sys.getenv("AWS_KEY"), secret = Sys.getenv("AWS_SECRET") )</code></li>
 </ul>
 <p>Note that the second function call relies on “AWS_KEY” and
@@ -158,6 +160,10 @@ project directory:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">dp_repo</span><span class="op">)</span></span></code></pre></div>
 <p>You can double-check that everything is set up correctly with
 <code>is_valid_dp_repository()</code></p>
+<p>Note: to make sure everything is set up correctly, open the dp_repo
+Project in order to restart your R session and load your renv library.
+You can do this via File &gt; Open Project and select the relevant
+.Rproj file.</p>
 <div class="section level3">
 <h3 id="add-starter-script">Add starter script<a class="anchor" aria-label="anchor" href="#add-starter-script"></a>
 </h3>
@@ -231,12 +237,12 @@ project directory.</p>
 function so that it gets built into the data product:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Derive distance</span></span>
-<span><span class="va">dist_m</span> <span class="op">&lt;-</span> <span class="fu">derive_dist</span><span class="op">(</span>data_files_read <span class="op">=</span> <span class="va">data_files_read</span>, config <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dist_m</span> <span class="op">=</span> <span class="fu">derive_dist</span><span class="op">(</span>data_files_read <span class="op">=</span> <span class="va">data_files_read</span>, config <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span></code></pre></div>
 <p>And we also need to make sure our derived data gets added to
 <code>dp_structure</code> within <code>dp_make.R</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Structure data obj</span></span>
-<span><span class="va">data_object</span> <span class="op">&lt;-</span> <span class="fu">dp_structure</span><span class="op">(</span></span>
+<span><span class="va">data_object</span> <span class="op">=</span> <span class="fu">dp_structure</span><span class="op">(</span></span>
 <span>  data_files_read <span class="op">=</span> <span class="va">data_files_read</span>,</span>
 <span>  config <span class="op">=</span> <span class="va">config</span>,</span>
 <span>  output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dist_m <span class="op">=</span> <span class="va">dist_m</span><span class="op">)</span>,</span>
@@ -295,11 +301,11 @@ with one call to <code>dp_deploy</code>:</p>
 but for brevity here we can just use the existing config to connect to
 the board, get the data and list what else is on the board.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dp_connect</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, creds <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">creds</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">board_object</span> <span class="op">&lt;-</span> <span class="fu">dp_connect</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, creds <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">creds</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dp</span> <span class="op">&lt;-</span> <span class="fu">dp_get</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span>, data_name <span class="op">=</span> <span class="st">"dp_test1"</span><span class="op">)</span></span>
+<span><span class="va">dp</span> <span class="op">&lt;-</span> <span class="fu">dp_get</span><span class="op">(</span>board_object <span class="op">=</span> <span class="va">board_object</span>, data_name <span class="op">=</span> <span class="st">"dp-test1-us001"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dp_list</span><span class="op">(</span>board_params <span class="op">=</span> <span class="va">config</span><span class="op">$</span><span class="va">board_params</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">dp_list</span><span class="op">(</span>board_object <span class="op">=</span> <span class="va">board_object</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

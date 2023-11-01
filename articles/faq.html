@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">daapr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,10 +51,13 @@
     <a class="dropdown-item" href="../articles/min_wrkfl.html">A minimalist example</a>
     <a class="dropdown-item" href="../articles/input_data_update.html">Update input data</a>
     <a class="dropdown-item" href="../articles/dp_update.html">Update build logic</a>
-    <a class="dropdown-item" href="../articles/min_workflow_local.html">A minimalist example with local data</a>
+    <a class="dropdown-item" href="../articles/min_workflow_local.html">A minimalist example deployed locally</a>
     <a class="dropdown-item" href="../articles/dp_merge.html">Combine two data products</a>
     <a class="dropdown-item" href="../articles/faq.html">Frequently Asked Questions</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -111,16 +114,6 @@ switch to using targets, you can use <code>dpcode_add()</code> to get
 the relevant <code>targets</code> template files, but you will have to
 delete or rename your existing <code>dp_make.R</code> and
 <code>dp_journal.Rmd</code> files first.</p>
-</div>
-<div class="section level2">
-<h2 id="what-if-sourcing-dp_make-r-doesnt-find-my-new-input-data">What if sourcing <code>dp_make.R</code> doesn’t find my new input
-data?<a class="anchor" aria-label="anchor" href="#what-if-sourcing-dp_make-r-doesnt-find-my-new-input-data"></a>
-</h2>
-<p>If you have a project that uses <code>drake</code> (you can check
-this by looking for a .drake folder in your project repository), you may
-need to manually clear the cache to update the input data. You can do
-this by running <code>drake::clean()</code> before sourcing
-<code>dp_make.R</code>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
