@@ -107,10 +107,10 @@ If you wanted to access the from the remote resource, you can simply connect and
 and pull the data.
 
 ```{r dpi_, eval=FALSE}
-dp_connect(board_params = config$board_params, creds = config$creds)
+board_object <- dp_connect(board_params = config$board_params, creds = config$creds)
 
-dp <- dp_get(board_params = config$board_params, data_name = "dp-cars-us001")
+dp <- dp_get(board_object = board_object, data_name = "dp-cars-us001")
 
-dp_list(board_params = config$board_params)
+dp_list(board_object = board_object)
 ```
 
