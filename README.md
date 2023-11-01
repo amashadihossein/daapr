@@ -15,28 +15,10 @@ for implementing the framework of Data-as-a-Product (DaaP).
 
 ## Installation
 
-**Read this section carefully!**
-
 `daapr` installs the core packages of the DaaP framework,
 [`dpbuild`](https://github.com/amashadihossein/dpbuild),
 [`dpdeploy`](https://github.com/amashadihossein/dpdeploy) and
-[`dpi`](https://github.com/amashadihossein/dpi), along with a custom
-version of the [`pins`](https://github.com/amashadihossein/pins)
-package.
-
-Note: currently `daapr` uses a custom version of the `pins` package.
-This will change in the future to stay in sync with the latest
-[`pins`](https://pins.rstudio.com/). However, at this point, it is
-important to remove any existing packages and start with a fresh pull
-from this repo.
-
-``` r
-# Remove previously installed core daapr packages and update
-remove.packages(intersect(
-  rownames(installed.packages()),
-  c("pins", "dpi", "dpbuild", "dpdeploy", "daapr")
-))
-```
+[`dpi`](https://github.com/amashadihossein/dpi).
 
 For released version
 
