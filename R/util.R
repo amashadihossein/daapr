@@ -4,9 +4,7 @@
 #' @noRd
 msg <- function(..., startup = FALSE) {
   if (startup) {
-    # if (!isTRUE(getOption("tidyverse.quiet"))) {
     packageStartupMessage(text_col(...))
-    # }
   } else {
     message(text_col(...))
   }
