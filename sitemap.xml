@@ -1,48 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/daapr.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/dp_merge.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/dp_update.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/faq.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/input_data_update.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/min_workflow_local.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/articles/min_wrkfl.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/reference/daapr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://amashadihossein.github.io/daapr/reference/index.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://amashadihossein.github.io/daapr/404.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/LICENSE.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/daapr.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/dp_merge.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/dp_update.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/faq.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/index.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/input_data_update.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/min_workflow_local.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/articles/min_wrkfl.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/authors.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/index.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/news/index.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/reference/daapr-package.html</loc></url>
+<url><loc>https://amashadihossein.github.io/daapr/reference/index.html</loc></url>
 </urlset>
+

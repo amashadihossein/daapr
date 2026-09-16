@@ -1,0 +1,170 @@
+# Combine two data products
+
+## Goal
+
+Combine two data products to demonstrate the workflow
+
+## Background
+
+A data product with a broader scope may encompass one or more other data
+products. In such cases, data products can be directly imported within
+the data processing logic and they are not considered `input_data`.
+
+## User Story
+
+We need to have information we derived and encoded previously within
+`dp_cars-us001` and information within `dp_mtcars-us001` (which is
+simply a toy data product based on `mtcars` dataset we have built).
+
+## Step 1: Initialize the project
+
+As this is a new project, we initialize the project using
+[`dpbuild::dp_init`](https://rdrr.io/pkg/dpbuild/man/dp_init.html). See
+the
+[vignette](https://amashadihossein.github.io/daapr/articles/daapr.html)
+on new project workflow for details of what the initialization does.
+
+``` r
+
+library(daapr)
+
+board_params_set_dried <- fn_dry(board_params_set_s3(
+  bucket_name = "<BUCKET>",
+  region = "<REIGION>"
+))
+
+# Dry function call to setting credentials
+creds_set_dried <- fn_dry(creds_set_aws(
+  key = Sys.getenv("AWS_KEY"),
+  secret = Sys.getenv("AWS_SECRET")
+))
+
+# Initialize dp repo
+dp_repo <- dp_init(
+  project_path = "dp_xcars",
+  project_description = "Cars and mtcars combined data product",
+  branch_name = "us001",
+  branch_description = "User story 1",
+  readme_general_note = "Data product combining cars and metcars",
+  board_params_set_dried = board_params_set_dried,
+  creds_set_dried = creds_set_dried
+)
+```
+
+## Step 2: Set up the working environment
+
+At this point your project has all the basic components to provide you
+with a sandbox where you can do your development. It is not necessary,
+but it may be instructional to clean and restart your R session before
+this next step. Then, activate and set up the sandbox for this project.
+
+``` r
+
+setwd(dp_repo)
+
+# only necessary if you re-started your R session
+if (!"daapr" %in% (.packages())) {
+  library("daapr")
+}
+
+# Set up "promised" env variables
+Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
+Sys.setenv("AWS_SECRET" = "<BUCKETS AWS SECRET>")
+
+# Retrieve configuration
+config <- dpconf_get(project_path = ".")
+
+# Set up remote git env variable so you can directly push your code to git
+# remote. This will only be used when you are pushing the code, but we can set
+# it now as we are setting up our working env. If you don't want to deal with
+# this you can skip this. You can still go quite far in the workflow
+Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB PAT>")
+```
+
+## Step 3: Build the data product
+
+Here is where the main logic of the data product is implement and the
+data product is built. Note, if we had additional data that needed to be
+included in the data product, we would mapped and synced it as done when
+building `dp_cars`, prior to build the `dp_xcars` logic.
+
+``` r
+
+board_object <- dp_connect(board_params = config$board_params, creds = config$creds)
+
+# specify which versions of data products to use
+version1 <- "<version1>"
+version2 <- "<version2>"
+dp_cars <- dp_get(
+  board_object = board_object,
+  data_name = "dp-cars-us001", version = version1
+)
+
+dp_mtcars <- dp_get(
+  board_object = board_object,
+  data_name = "dp-mtcars-us001", version = version2
+)
+
+# build input data by converting input data products to links
+input <- list(
+  dp_cars = dp_tolink(
+    data_name = "dp-cars-us001",
+    data_version = version1
+  ),
+  dp_mtcars = dp_tolink(
+    data_name = "dp-mtcars-us001",
+    data_version = version2
+  )
+)
+
+# build your output data
+output <- list(cars = dp_cars$input$cars, mt_cars = dp_mtcars$input$mtcars)
+
+# Structure the input, output, metadata ... you wish to have in your data product
+data_object <- dp_structure(
+  data_files_read = input,
+  output = output, config = config
+)
+
+# save and log the data product built
+dp_write(data_object = data_object, project_path = ".")
+```
+
+## Step 5: Commit and push
+
+At this point, you can commit and push your code. NOTE: for your push to
+work
+
+1.  You should have created the empty repo on the git remote
+    (e.g. github)
+2.  `Sys.getenv("GITHUB_PAT")` returns the corresponding “GITHUB_PAT”
+
+``` r
+
+dp_commit(project_path = ".", commit_description = "First dp build")
+dp_push(project_path = ".")
+```
+
+## Step 6: Deploy
+
+Deploy the merged data product:
+
+``` r
+
+dp_deploy()
+```
+
+## Step 7: Data access
+
+Typical access pattern starts with setting up the env vars, but for
+brevity here we can just use the existing config to connect to the
+board, get the data and list what else is on the board.
+
+``` r
+
+board_object <- dp_connect(board_params = config$board_params, creds = config$creds)
+
+dp <- dp_get(board_object = board_object, data_name = "dp-xcars-us001")
+
+dp_list(board_object = board_object)
+```

@@ -1,0 +1,108 @@
+# Update build logic
+
+## Goal:
+
+Document workflow for updating the data processing logic. Here, for
+simplicity the input data remains unchanged.
+
+## User story
+
+We are interested in updating the previously built data product
+`dp-cars-us001` so that it provides distances in cars dataset in cm. See
+[minimalist
+example](https://amashadihossein.github.io/daapr/articles/min_wrkfl.html)
+
+## Step 1 Clone the existing `dp_cars` project, set env and activate
+
+Clone existing data product you wish to modify. Navigate to the
+directory under which you wish to put the project folder and provide
+your `GITHUB_PAT` to the environment as shown below.
+
+``` r
+
+# Set up "promised" env variables
+Sys.setenv("AWS_KEY" = "<BUCKETS AWS KEY>")
+Sys.setenv("AWS_SECRET" = "<BUCKETS AWS SECRET>")
+Sys.setenv("GITHUB_PAT" = "<YOUR GITHUB_PAT>")
+
+dp_clone(remote_url = "<GIT PATH/dp_cars.git>", branch = "us001")
+renv::activate(project = "./dp_cars/")
+renv::restore()
+# Check if the project is set up correctly
+is_valid_dp_repository()
+
+library(daapr)
+# get config
+config <- dpconf_get(project_path = ".")
+```
+
+## Step 2 Modify `dp_make.R`
+
+Open `dp_make.R` and edit to add a single line
+`dplyr::mutate(dist_cm = 100 * dist_m)` as shown below:
+
+``` r
+
+# read in the input data from what is recorded by dpinput_write
+data_files_read <- dpinput_read()
+
+# build your ouput data
+output <- data_files_read$cars(config = config) %>%
+  dplyr::mutate(dist_m = 0.3048 * dist) %>%
+  dplyr::mutate(dist_cm = 100 * dist_m)
+
+# Structure the input, output, metadata ... you wish to have in your data product
+data_object <- dp_structure(
+  data_files_read = data_files_read,
+  output = output, config = config
+)
+
+# save and log the data product built
+dp_write(data_object = data_object, project_path = ".")
+```
+
+## Step 4 Build and evaluate
+
+Here we simply source the edited `dp_make.R` and given its simplicity
+evaluation is simply confirming that `data_object` is anticipated
+
+``` r
+
+source("./dp_make.R")
+```
+
+You can check your updated data product by inspecting the rds object in
+the `output_files` folder before continuing with the next steps.
+
+## Step 5 Commit and push
+
+Commit the changes and push the modified `dp_cars` to remote git repo
+
+``` r
+
+dp_commit(project_path = ".", commit_description = "Added cm feature")
+dp_push(project_path = ".")
+```
+
+## Step 6 Deploy
+
+Deploy the data product:
+
+``` r
+
+dp_deploy()
+```
+
+## Step 7: Data access (optional)
+
+If you wanted to access the from the remote resource, you can simply
+connect and and pull the data.
+
+``` r
+
+board_object <- dp_connect(board_params = config$board_params, creds = config$creds)
+
+dp <- dp_get(board_object = board_object, data_name = "dp-cars-us001")
+
+dp_list(board_object = board_object)
+```

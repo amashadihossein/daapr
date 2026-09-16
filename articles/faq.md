@@ -1,0 +1,24 @@
+# Frequently Asked Questions
+
+## What file types are accepted?
+
+Any standard flat tabular data format can be added to the `input_files`
+when adding data. This includes .csv, .tsv, .xlsx, .rds, and .sas7bdat
+files. Data can also be provided in zipped format, as `dpinput_map` will
+unzip your files for you.
+
+## Should I use targets with `dpcode_add()`?
+
+Since version 0.0.0.9014,
+[`dpbuild::dpcode_add()`](https://rdrr.io/pkg/dpbuild/man/dpcode_add.html)
+has a parameter `use_targets` (default FALSE) where the user can specify
+whether to use [targets](https://books.ropensci.org/targets/) instead of
+[drake](https://github.com/ropensci/drake) for building data product
+targets. Since drake is superceded, we recommend using targets by
+specifying `dpbuild::dpcode_add(use_targets = TRUE)` when starting any
+new projects.
+
+If you have an existing project that uses drake and you’d like to switch
+to using targets, you can use `dpcode_add()` to get the relevant
+`targets` template files, but you will have to delete or rename your
+existing `dp_make.R` and `dp_journal.Rmd` files first.
